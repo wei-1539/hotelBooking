@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200..900&display=swap');
+*, body {
+  font-family: 'Noto Serif TC', sans-serif;
+  box-sizing: border-box;
+}
+img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

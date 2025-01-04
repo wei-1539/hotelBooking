@@ -1,4 +1,6 @@
 import { defineConfig,presetUno,presetIcons,presetWebFonts } from "unocss";
+// IconifyJSON 型別：假設已在專案中定義或從 Iconify 提供的型別庫中匯入該型別
+import type { IconifyJSON } from '@iconify/types';
 
 export default defineConfig({
   //製作快捷的 class
@@ -59,10 +61,24 @@ export default defineConfig({
     // 預設 引入 windi.css
     presetUno(),
     // 引入外部Icon
-    presetIcons(),
+    presetIcons({
+      // 官網推薦定義 icon 的來源
+      // 要載入 iconify 集合，您應該使用 @iconify-json/[想要的內容] 而不是 @iconify/json，因為 json 檔案很大。
+      collections:{
+        bi: () => import('@iconify-json/bi/icons.json').then(i => i.default),
+        mdi: () => import('@iconify-json/mdi/icons.json').then(i => i.default),
+        // 客製化 icon 需要在後面使用 as any 『用於繞過 TypeScript 的型別檢查 (較不建議)』，出錯比較難發現
+        // 可以改使用  as IconifyJSON 將匯入的內容視為 IconifyJSON 型別，並應用該型別的結構進行檢查。
+        // 使用  as IconifyJSON 前提要從 Iconify 提供的型別庫中匯入該型別
+        'material-symbols': () => import('@iconify-json/material-symbols/icons.json').then(i => i.default as IconifyJSON),
+        fluent: () => import('@iconify-json/fluent/icons.json').then(i => i.default as IconifyJSON),
+      },
+
+    }
+    ),
     // 引入外部字體
     presetWebFonts({
-      //文字來源於
+      //文字來源於x
       provider: "google",
       //定義字體配置
       fonts:{
