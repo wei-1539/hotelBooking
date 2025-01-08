@@ -1,3 +1,5 @@
+
+import transformerVariantGroup from '@unocss/transformer-variant-group'
 import { defineConfig,presetUno,presetIcons,presetWebFonts } from "unocss";
 // IconifyJSON 型別：假設已在專案中定義或從 Iconify 提供的型別庫中匯入該型別
 import type { IconifyJSON } from '@iconify/types';
@@ -95,5 +97,9 @@ export default defineConfig({
         ],
       },
     }),
+  ],
+  // 讓 UnoCSS 啟用 Windi CSS 的變體組功能。
+  transformers: [
+    transformerVariantGroup(),
   ],
 });

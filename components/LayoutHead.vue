@@ -35,9 +35,9 @@ const openMenu = ref(false)
         <!-- SP show Icon -->
         <div @click="openMenu = !openMenu"
             class="w-10 h-10 p-2 flex flex-col justify-evenly items-center md:hidden cursor-pointer z-10">
-            <span :class="{ 'rotate-225 translate-y-1.5': openMenu }" class="bg-white w-100% h-2px duration-300 "></span>
-            <span :class="{ 'opacity-0': openMenu }" class="bg-white w-100% h-2px duration-300"></span>
-            <span :class="{ '-rotate-225 -translate-y-1.55': openMenu }" class="bg-white w-100% h-2px duration-300"></span>
+            <span :class="{ 'rotate-225 translate-y-1.5': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full "></span>
+            <span :class="{ 'opacity-0': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full"></span>
+            <span :class="{ '-rotate-225 -translate-y-1.55': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full"></span>
         </div>
 
         <Transition name="fade">
