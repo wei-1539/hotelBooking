@@ -9,6 +9,26 @@ onMounted(() => {
 import { Autoplay,Navigation,Pagination} from 'swiper/modules'
 
 
+// 房間
+const roomInfo=[
+  {
+    spImg:"@/assets/images/home-room-sm-1.png",
+    pcImg:"@/assets/images/home-room-1.png",
+  },
+  {
+    spImg:"@/assets/images/home-room-sm-1.png",
+    pcImg:"@/assets/images/home-room-1.png",
+  },
+  {
+    spImg:"@/assets/images/home-room-sm-1.png",
+    pcImg:"@/assets/images/home-room-1.png",
+  },
+  {
+    spImg:"@/assets/images/home-room-sm-1.png",
+    pcImg:"@/assets/images/home-room-1.png",
+  },
+]
+// 交通資訊
 const trafficInfo = [
   {
     icons: "i-mdi:car",
@@ -37,37 +57,25 @@ const trafficInfo = [
 
     <!-- FV -->
     <!-- 最新消息 -->
-    <!-- 關於我們 -->
-    <!-- 輪播 -->
-    <!-- 佳餚 -->
-     <DotCube/>
-    <section class="pt-20 ps-3 md:(pt-30 ps-0) ">
+    <section class="px-3 py-20 md:(py-30 px-0)">
       <div class="max-w-1296px mx-auto">
+
+      </div>
+    </section>
+    <!-- 關於我們 -->
+    <!-- 房間輪播 -->
+     <section class="bg-gray-120 py-30">
+
+        <RoomCarousel :room-list="roomInfo"/>
+
+     </section>
+    <!-- 佳餚 -->
+    <section class="relative py-20 ps-3 md:(py-30 ps-0) ">
+      <DotCube class="absolute right-20 -top-10  hidden md:block"/>
+      <img class="absolute hidden md:block" src="@/assets/images/Line2.png" alt="">
+      <div class="max-w-1296px mx-auto left-10 top-12">
         <DefaultTitle title="佳餚美饌" class="mb-10 md:mb-20" />
-        <ClientOnly>
-          <Swiper class="mb-20 md:mb-30"
-            :autoplay="{ delay: 5000 }"
-            :loop="true"
-            :slidesPerView="1.25"
-            :space-between="20"
-            :breakpoints="{ 768: { slidesPerView: 3, } }"
-            :modules="[Autoplay,]"
-          >
-            <SwiperSlide v-for="(item, ind) in 10" :key="ind">
-              <picture>
-                <source
-                  srcset="@/assets/images/home-food-2.png"
-                  media="(min-width: 576px)"
-                />
-                <img
-                  class="w-100 rounded-3"
-                  src="@/assets/images/home-food-sm-2.png"
-                  alt="日食"
-                />
-              </picture>
-            </SwiperSlide>
-          </Swiper>
-        </ClientOnly>
+          <FoodCarousel :food-list="[aaa]"/>
       </div>
     </section>
     <!-- 交通 -->
