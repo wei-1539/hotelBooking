@@ -62,10 +62,10 @@ onMounted(() => {
 <style scoped>
 /* 使用深度选择器（scoped 情况下）:
 必须将样式放在组件内部的 <style scoped> 中，需要使用 Vue 的深度选择器 >>> 或 /deep/，以便作用域样式能影响子组件 */
->>> .swiper-pagination {
+::v-deep( .swiper-pagination) {
     bottom: 24px;
 }
->>> .swiper-pagination-bullet {
+::v-deep(.swiper-pagination-bullet) {
     width: 32px ;
     height: 4px ;
     background-color: #f1eae4 ;
@@ -73,7 +73,7 @@ onMounted(() => {
     transition:all .3s;
     opacity: 1;
 }
->>> .swiper-pagination-bullet-active{
+::v-deep(.swiper-pagination-bullet-active){
     background-color: #bf9d7d ;
     width: 60px ;
     opacity: 1;

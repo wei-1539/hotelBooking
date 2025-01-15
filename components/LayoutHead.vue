@@ -1,9 +1,21 @@
 <script setup>
 const openMenu = ref(false)
+
+// 滾動觸發
+const isScroll = ref(false) // 是否滾動
+const scrollHandler = () => {
+    isScroll.value = window.scrollY > 0
+}
+onMounted(() => {
+    window.addEventListener('scroll', scrollHandler)
+})
+onUnmounted(() => {
+    window.removeEventListener('scroll', scrollHandler)
+})
 </script>
 
 <template>
-    <header class="px-3 md:px-20 py-4 md:py-6 flex items-center justify-between p-4 bg-gray text-white">
+    <header :class="[isScroll?'bg-gray':'']" class="fixed top-0 left-0 z-10 w-full px-3 md:px-20 py-4 md:py-6 flex items-center justify-between p-4 text-white duration-300">
         <!-- logo -->
         <h1>
             <NuxtLink to="/" class="hover-opacity-90 duration-300 block w-27 md:w-100%">

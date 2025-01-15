@@ -35,15 +35,14 @@ const props = defineProps({
 
           
         </Swiper>
-        <div class="ml-10 max-w-628px">
+        <div class="ml-10 max-w-628px w-full">
           <h2 class="text-10 line-height-12 mb-4">尊爵雙人房</h2>
           <p class="mb-10">
             享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。
           </p>
           <h2 class="text-8 line-height-9.5 mb-10">NT$ 10,000</h2>
-          <div class="w-full bg-white text-#000 p-10 rounded-2 text-6 mb-10">
-            我是按鈕
-          </div>
+         
+          <HeroBtn title="查看更多" />
           <div class="flex justify-end items-center p-4 gap-8">
             <div class="i-mdi:arrow-left swiper-button-L w-6 h-6 cursor-pointer"></div>
             <div class="i-mdi:arrow-right swiper-button-R w-6 h-6 cursor-pointer"></div>
