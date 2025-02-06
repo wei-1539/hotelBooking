@@ -20,6 +20,7 @@ export default defineConfig({
         60: "#e1d1c2",
         40: "#f1eae4",
         20: "#Faf7f5",
+        10: "#F7F2EE"
       },
       success: {
         120: "#299F65",
@@ -55,7 +56,7 @@ export default defineConfig({
       lg: "1024px",
       xl: "1280px",
       "2xl": "1440px",
-      "3 xl": "1920px",
+      "3xl": "1920px",
     },
   },
   // 預設的 plugins

@@ -23,7 +23,7 @@ onUnmounted(() => {
             </NuxtLink>
         </h1>
 
-        <nav class="hidden md:block ">
+        <nav class="hidden lg:block ">
             <ul class="flex items-center ">
                 <li class="pe-4">
                     <NuxtLink to="/rooms" class="p-4 text-white decoration-none hover-opacity-90 duration-300">客房旅宿
@@ -46,7 +46,7 @@ onUnmounted(() => {
 
         <!-- SP show Icon -->
         <div @click="openMenu = !openMenu"
-            class="w-10 h-10 p-2 flex flex-col justify-evenly items-center md:hidden cursor-pointer z-10">
+            class="w-10 h-10 p-2 flex flex-col justify-evenly items-center lg:hidden cursor-pointer z-10">
             <span :class="{ 'rotate-225 translate-y-1.5': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full "></span>
             <span :class="{ 'opacity-0': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full"></span>
             <span :class="{ '-rotate-225 -translate-y-1.55': openMenu }" class="bg-white w-100% h-2px duration-300 rounded-full"></span>

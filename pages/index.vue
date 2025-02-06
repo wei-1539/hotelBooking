@@ -101,24 +101,23 @@ const trafficInfo = [
     <section class="w-full h-full relative">
       <Carousel />
       <div
-        class="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 z-1 px-20"
+        class="absolute w-full px-5 pt-10 top-72px left-0 md:(top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pt-20 pb-5  px-10)  xl:(pt-0 px-20) z-1 "
       >
-        <div class="flex justify-between items-center">
-          <div class="max-w-636px">
-            <h1 class="text-10 leading-12 text-primary font-bold  mb-2">享樂酒店</h1>
-            <h2 class="text-primary text-6 leading-7.2 font-bold mb-10">Enjoyment Luxury Hotel</h2>
-            <div class="titleDecoLine w-636px h-2px bg-gradient-to-r from-#be9c7c to-#fff"></div>
+        <div class="flex flex-col items-center lg:(flex-row justify-between items-center)">
+          <div class=" mb-10  max-w-636px text-center md:(mb-20 ) lg:(mb-0 text-left )">
+            <h1 class="text-7 leading-8.2 xl:( text-10 leading-12) text-primary font-bold mb-2 ">享樂酒店</h1>
+            <h2 class="text-primary text-6 leading-7.2 font-bold mb-5 xl:(mb-10)">Enjoyment Luxury Hotel</h2>
+            <div class="titleDecoLine  w-2px h-83px mx-auto lg:(rotate-0 h-2px w-[clamp(350px,27.5vw,636px)]) 3xl:(w-636px)  bg-gradient-to-r from-#be9c7c to-#fff"></div>
           </div>
           <div
-            class="text-white bg-gradient-to-b from-#fff/0 to-#fff/30 border-t-(1px solid #fff) border-r-(1px solid #fff) rounded-20 py-24 pr-50"
+            class="w-291px py-15 pr-5 ml-auto rounded-10 sm:(ml-0) md:( rounded-20 py-10 pr-40 w-500px) lg:( w-55% max-w-924px) 3xl:(py-24 pr-50  w-100%) text-white  bg-gradient-to-b from-#fff/0 to-#fff/30 border-t-(1px solid #fff) border-r-(1px solid #fff) backdrop-blur-5px  "
           >
-            <div class="max-w-772px -translate-x-12">
-              <h2 class="text-25 mb-2 font-bold leading-30 ml-auto">高雄</h2>
-              <h2 class="text-25 mb-6 font-bold leading-30">豪華住宿之選</h2>
-              <p class="text-8 mb-15">
+            <div class=" -translate-x-12% w-309px md:(w-500px -translate-x-10%) lg:(w-525px -translate-x-8%)  xl:(w-772px -translate-x-12%)">
+              <h2 class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-2 font-bold ml-auto">高雄</h2>
+              <h2 class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-6 font-bold ">豪華住宿之選</h2>
+              <p class="mb-10 text-4 leading-6 tracking-.2 md:(text-6 leading-9 )lg:(mb-8) xl:(text-8 mb-15) ">
                 我們致力於為您提供無與倫比的奢華體驗與優質服務
               </p>
-              <!-- <div class="bg-white py-10">立即訂房</div> -->
               <HeroBtn title="立即訂房" />
             </div>
           </div>

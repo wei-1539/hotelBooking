@@ -9,10 +9,10 @@ import { gsap } from "gsap";
  })
 </script>
 <template>
-  <div class="bg-white p-10 text-#000 hover:(bg-primary text-white) duration-300 group rounded-2 cursor-pointer">
+  <div class=" bg-white p-5 md:(p-7.5) text-#000 hover:(bg-primary text-white) duration-300 group rounded-2 cursor-pointer">
     <div class="flex items-center justify-end">
-        <h2 class="text-6 leading-9 mr-4 font-700">{{ props.title }}</h2>
-        <div ref="decoLine" class=" w-150px  h-1px bg-#000 group-hover:(bg-white) overflow-hidden"></div>
+        <h2 class="text-4 leading-6 md:(text-6 leading-9) mr-4 font-700">{{ props.title }}</h2>
+        <div ref="decoLine" class="w-80px  md:(w-150px)  h-1px bg-#000 group-hover:(bg-white) overflow-hidden"></div>
     </div>
   </div>
 </template>
