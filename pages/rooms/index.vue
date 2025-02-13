@@ -37,7 +37,7 @@ onMounted(()=>{
           </picture>
         </SwiperSlide>
       </Swiper>
-    </ClientOnly>Ｆ
+    </ClientOnly>
       <div class="flex flex-col  md:(flex-row gap-20 ) justify-center items-center absolute top-50% left-50%  -transform-translate-x-50%  -transform-translate-y-50% z-1 w-full ">
         <div class="webTitle mb-10 md:(mb-0)">
           <h2 class="text-7 leading-8 tracking-1 text-center md:(text-left text-10 leading-12) font-bold text-primary mb-2">享樂酒店</h2>

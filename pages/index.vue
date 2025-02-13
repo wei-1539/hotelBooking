@@ -126,14 +126,14 @@ const trafficInfo = [
     </section>
     <!-- 最新消息 -->
     <section class="px-3 py-20 md:(py-30 px-0)">
-      <div class="max-w-1296px mx-auto flex gap-20 relative">
+      <div class="max-w-1296px mx-auto flex flex-col items-start gap-10 md:(flex-row gap-20) relative">
         <DotCube class="absolute -right-11.5% -top-2% hidden md:block" />
         <DefaultTitle title="最新消息" col-text="true" class="mb-10 md:mb-20" />
         <ul class="max-w-1076px relative z-1">
           <li
             v-for="item in newsInfo"
             :key="item.title"
-            class="flex justify-between items-center gap-6 mb-10"
+            class="flex flex-col md:(flex-row) justify-between items-center gap-6 mb-10"
           >
             <picture class="rounded-2 overflow-hidden max-w-474px w-full">
               <source

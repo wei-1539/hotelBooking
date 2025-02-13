@@ -32,7 +32,7 @@ onMounted(() => {
 
 </script>
 <template>
-  <div :class="[colText ? 'flex-col item-start ' : '']" class="flex items-center">
+  <div :class="[colText ? 'flex-col item-start ' : 'items-center']" class="flex ">
     <h2  :class="[colText? 'mb-10':'' ,whiteTxt?'text-white':'']" class="font-700 text-primary text-size-8 line-height-9.5 md:(text-size-12 line-height-14.5) me-10">
       {{ titleArr[0] }}<br />{{ titleArr[1] }}
     </h2>
