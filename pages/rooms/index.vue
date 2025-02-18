@@ -8,6 +8,17 @@ onMounted(()=>{
   //  gsap.to(".titleDecoLine",{ scaleX:'.3',transformOrigin:'left',duration:2,repeat:-1,yoyo:true ,ease:'power1.inOut'});
   })
 })
+const infoData = [
+  {
+    content:'24坪'
+  },
+  {
+   content:'1 張大床'
+  },
+  {
+    content:'2-4 人'
+  },
+]
 </script>
 <template>
   <div>
@@ -90,7 +101,8 @@ onMounted(()=>{
               <NuxtLink to="/" class="roomDetail max-w-523px w-full  p-4 md:(p-6 w-40%) xl:(p-10 w-full) bg-white block decoration-none">  
                 <h2 class="text-7 leading-8.4 tracking-.5 mb-2 md(text-8.5 leading-10) xl:(text-10 leading-12) font-bold text-gray">尊爵雙人房</h2>
                 <p class="text-3.5 leading-5.5 text-gray-80">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
-                <ul class="roomInfo flex justify-between gap-4 my-6 max-w-323px  xl:(my-10)">
+                <RoomInfo class="my-6 xl:(my-10)" :roomInfoData="infoData"/>
+                <!-- <ul class="roomInfo flex justify-between gap-4 my-6 max-w-323px  xl:(my-10)">
                   <li class="w-97px h-97px px-4 py-5.125 border-(1px solid primary-40) rounded-2">
                     <div class="i-fluent:slide-size-24-filled w-6 h-6 text-primary mb-2"></div>
                     <p class=" leading-8 text-gray">24坪</p>
@@ -103,7 +115,7 @@ onMounted(()=>{
                     <div class="i-material-symbols:person w-6 h-6 text-primary mb-2"></div>
                     <p class=" leading-8 text-gray">2-4 人</p>
                   </li>
-                </ul>
+                </ul> -->
                 <div class="titleDecoLine  mb-6  xl:(mb-10) h-2px  bg-gradient-to-r from-#be9c7c to-#fff"></div>
                 <div class="roomPrice flex justify-between items-center py-4 md:(py-2)">
                   <p class="text-4 leading-6 md:(text-5 leading-6.6) xl:(text-6 leading-7.2) text-primary" >NT$ 10,000</p>
