@@ -53,7 +53,7 @@ onUnmounted(() => {
         </div>
 
         <Transition name="fade">
-            <div v-show="openMenu" class="md:hidden fixed start-0 top-0 w-100dvw h-100dvh bg-gray bg-opacity-90 z-5 flex items-center justify-center">
+            <div v-show="openMenu" class="xl:hidden fixed start-0 top-0 w-100dvw h-100dvh bg-gray bg-opacity-90 z-5 flex items-center justify-center">
                 <ul class="flex flex-col gap-4 items-center w-90% mx-auto">
                     <li class="w-100% text-center ">
                         <NuxtLink @click="openMenu = !openMenu" to="/rooms" class="block py-4 text-white decoration-none hover-opacity-90 duration-300">客房旅宿
