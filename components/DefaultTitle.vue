@@ -33,12 +33,12 @@ onMounted(() => {
 </script>
 <template>
   <div :class="[colText ? 'flex-col item-start ' : 'items-center']" class="flex ">
-    <h2  :class="[colText? 'mb-10':'' ,whiteTxt?'text-white':'']" class="font-700 text-primary text-size-8 line-height-9.5 md:(text-size-12 line-height-14.5) me-10">
+    <h2  :class="[colText? 'mb-6 md:(mb-10)':'' ,whiteTxt?'text-white':'']" class="font-700 text-primary text-size-8  line-height-9.5 md:(text-size-12 line-height-14.5) me-10">
       {{ titleArr[0] }}<br />{{ titleArr[1] }}
     </h2>
  
 
-    <div ref="decoLine" :class="[colText? 'w-140px': '']"  class=" h-2px w-194px md:w-165px decoLine rounded-full bg-gradient-to-r from-primary to-white"></div>
+    <div ref="decoLine" :class="[colText? 'w-140px': 'w-160px']"  class=" h-2px md:w-194px decoLine rounded-full bg-gradient-to-r from-primary to-white"></div>
   </div>
 </template>
 <style scoped>

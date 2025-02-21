@@ -7,7 +7,7 @@ const props = defineProps({
 <template>
   <div class="w-full h-full">
     <ClientOnly>
-      <Swiper
+      <Swiper class="h-full"
         :autoplay="{ delay: 5000 }"
         :loop="true"
         :slidesPerView="1"

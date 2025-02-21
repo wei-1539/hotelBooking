@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
 // 引入 gsap
 import { gsap } from "gsap";
 const line = ref(null);
@@ -30,24 +30,24 @@ const aboutContent = [
 // 最新消息
 const newsInfo = [
   {
-    pcImg: "@/assets/images/home-news-1.png",
-    spImg: "@/assets/images/home-news-sm-1.png",
+    pcImg: "/_nuxt/assets/images/home-news-1.png",
+    spImg: "/_nuxt/assets/images/home-news-sm-1.png",
     title: "秋季旅遊，豪華享受方案",
     content:
       "秋天就是要來場豪華的旅遊！我們為您準備了一系列的秋季特別方案，包括舒適的住宿、美食饗宴，以及精彩的活動。不論您是想來一趟浪漫之旅，還是想和家人共度美好時光，都能在這裡找到最適合的方案。",
   },
 
   {
-    pcImg: "@/assets/images/home-news-2.png",
-    spImg: "@/assets/images/home-news-sm-2.png",
+    pcImg: "/_nuxt/assets/images/home-news-2.png",
+    spImg: "/_nuxt/assets/images/home-news-sm-2.png",
     title: "輕鬆住房專案",
     content:
       "我們知道，有時候您只是需要一個舒適的地方放鬆心情。因此，我們推出了「輕鬆住房專案」，讓您無壓力地享受住宿。不管是短期的休息，還是長期的住宿，我們都會以最貼心的服務，讓您感到賓至如歸。",
   },
 
   {
-    pcImg: "@/assets/images/home-news-3.png",
-    spImg: "@/assets/images/home-news-sm-3.png",
+    pcImg: "/_nuxt/assets/images/home-news-3.png",
+    spImg: "/_nuxt/assets/images/home-news-sm-3.png",
     title: "耶誕快樂，住房送禮",
     content:
       "聖誕節來臨，我們為您準備了特別的禮物！在聖誕期間訂房，不僅有特別優惠，還會送上我們精心準備的聖誕禮物。讓我們一起慶祝這個溫馨的節日吧！",
@@ -98,23 +98,28 @@ const trafficInfo = [
 <template>
   <div>
     <!-- FV -->
-    <section class="w-full h-full relative">
+    <section class="w-full h-100vh md:h-full relative">
       <Carousel />
       <div
-        class="absolute w-full px-5 pt-10 top-72px left-0 md:(top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pt-20 pb-5  px-10)  xl:(pt-0 px-20) z-1 "
-      >
+        class="absolute w-full px-5 pt-10 top-72px left-0 md:(top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pt-20 pb-5  px-10)  xl:(pt-0 px-20) z-1 ">
         <div class="flex flex-col items-center lg:(flex-row justify-between items-center)">
           <div class=" mb-10  max-w-636px text-center md:(mb-20 ) lg:(mb-0 text-left )">
             <h1 class="text-7 leading-8.2 xl:( text-10 leading-12) text-primary font-bold mb-2 ">享樂酒店</h1>
-            <h2 class="text-primary text-6 leading-7.2 font-bold mb-5 xl:(mb-10)">Enjoyment Luxury Hotel</h2>
-            <div class="titleDecoLine  w-2px h-83px mx-auto lg:(rotate-0 h-2px w-[clamp(350px,27.5vw,636px)]) 3xl:(w-636px)  bg-gradient-to-r from-#be9c7c to-#fff"></div>
+            <h2 class="text-primary text-4 leading-7.2 font-bold mb-5 xl:(text-6 mb-10)">Enjoyment Luxury Hotel</h2>
+            <div
+              class="titleDecoLine  w-2px h-83px mx-auto lg:(rotate-0 h-2px w-[clamp(350px,27.5vw,636px)]) 3xl:(w-636px)  bg-gradient-to-r from-#be9c7c to-#fff">
+            </div>
           </div>
           <div
-            class="w-291px py-15 pr-5 ml-auto rounded-10 sm:(ml-0) md:( rounded-20 py-10 pr-40 w-500px) lg:( w-55% max-w-924px) 3xl:(py-24 pr-50  w-100%) text-white  bg-gradient-to-b from-#fff/0 to-#fff/30 border-t-(1px solid #fff) border-r-(1px solid #fff) backdrop-blur-5px  "
-          >
-            <div class=" -translate-x-12% w-309px md:(w-500px -translate-x-10%) lg:(w-525px -translate-x-8%)  xl:(w-772px -translate-x-12%)">
-              <h2 class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-2 font-bold ml-auto">高雄</h2>
-              <h2 class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-6 font-bold ">豪華住宿之選</h2>
+            class="w-291px py-15 pr-5 ml-auto rounded-10 sm:(ml-0) md:( rounded-20 py-10 pr-40 w-500px) lg:( w-55% max-w-924px) 3xl:(py-24 pr-50  w-100%) text-white  bg-gradient-to-b from-#fff/0 to-#fff/30 border-t-(1px solid #fff) border-r-(1px solid #fff) backdrop-blur-5px  ">
+            <div
+              class=" -translate-x-12% w-309px md:(w-500px -translate-x-10%) lg:(w-525px -translate-x-8%)  xl:(w-772px -translate-x-12%)">
+              <h2
+                class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-2 font-bold ml-auto">
+                高雄</h2>
+              <h2
+                class="text-12 leading-14 tracking-.8 lg:(text-14 leading-16) xl:(text-25  leading-30 ) mb-6 font-bold ">
+                豪華住宿之選</h2>
               <p class="mb-10 text-4 leading-6 tracking-.2 md:(text-6 leading-9 )lg:(mb-8) xl:(text-8 mb-15) ">
                 我們致力於為您提供無與倫比的奢華體驗與優質服務
               </p>
@@ -126,29 +131,19 @@ const trafficInfo = [
     </section>
     <!-- 最新消息 -->
     <section class="px-3 py-20 md:(py-30 px-0)">
-      <div class="max-w-1296px mx-auto flex flex-col items-start gap-10 md:(flex-row gap-20) relative">
-        <DotCube class="absolute -right-11.5% -top-2% hidden md:block" />
+      <div class="max-w-1296px mx-auto flex flex-col items-start gap-0 md:(flex-row gap-20) relative">
+        <DotCube class="absolute h-100px w-100px -top-2% right-0% md:(w-200px h-200px -right-11.5% -top-5%)" />
         <DefaultTitle title="最新消息" col-text="true" class="mb-10 md:mb-20" />
-        <ul class="max-w-1076px relative z-1">
-          <li
-            v-for="item in newsInfo"
-            :key="item.title"
-            class="flex flex-col md:(flex-row) justify-between items-center gap-6 mb-10"
-          >
+        <ul class="max-w-1076px relative z-2">
+          <li v-for="item in newsInfo" :key="item.title"
+            class="flex flex-col md:(flex-row) justify-between items-center gap-6 mb-10">
             <picture class="rounded-2 overflow-hidden max-w-474px w-full">
-              <source
-                srcset="@/assets/images/home-news-sm-1.png"
-                media="(max-width: 768px)"
-              />
-              <img
-                class="w-full rounded-3"
-                src="@/assets/images/home-news-1.png"
-                :alt="item.title"
-              />
+              <source :srcset="item.spImg" media="(max-width: 768px)" />
+              <img class="w-full rounded-3" :src="item.pcImg" :alt="item.title" />
             </picture>
             <div class="max-w-578px w-full">
-              <h2 class="text-8 line-height-9 mb-8">{{ item.title }}</h2>
-              <p class="text-gray-80 line-height-6">{{ item.content }}</p>
+              <h2 class="text-7 leading-8.6 mb-2 md:(text-8 leading-9.5 mb-8) ">{{ item.title }}</h2>
+              <p class="text-3.5 leading-5.5 md:(text-4 leading-6) text-gray-80 ">{{ item.content }}</p>
             </div>
           </li>
         </ul>
@@ -156,51 +151,37 @@ const trafficInfo = [
     </section>
     <!-- 關於我們 -->
     <section class="bg-gray pt-20 pb-30 md:(pt-30 pb-50) relative">
-      <picture
-        class="absolute left-0 top-20 md:(top-30) w-full h-full max-h-672px"
-      >
-        <source
-          srcset="@/assets/images/home-about-sm.png"
-          media="(max-width: 768px)"
-        />
-        <img
-          class="w-full h-full object-cover object-center"
-          src="@/assets/images/home-about.png"
-          alt="關於我們"
-        />
+      <DotCube class="absolute h-100px w-100px -top-5% left-5% z-2 md:(w-200px h-200px left-10% -top-12.5%)" />
+      <picture class="absolute left-0 top-20 md:(top-30) w-full h-full max-h-672px">
+        <source srcset="@/assets/images/home-about-sm.png" media="(max-width: 768px)" />
+        <img class="w-full h-full object-cover object-center" src="@/assets/images/home-about.png" alt="關於我們" />
       </picture>
       <div class="max-w-1296px mx-auto relative">
         <div
-          class="ml-auto transform-translate-y-20 max-w-1044px top-10% right-0% backdrop-blur-5 bg-gradient-to-b from-gray-120/80 to-#be9c7c/80 rounded-tl-20 rounded-tr-20 rounded-bl-20 border-b-(1px solid #fff) border-l-(1px solid #fff) p-20"
-        >
-          <DefaultTitle
-            title="關於我們"
-            white-txt="true"
-            class="mb-10 md:mb-20"
-          />
-          <div class="flex flex-col gap-10">
-            <p
-              v-for="(item, ind) in aboutContent"
-              :key="ind"
-              class="text-white leading-6"
-              v-html="item.label"
-            ></p>
+          class="ml-auto mr-5 transform-translate-y-10 max-w-315px top-10% right-0% backdrop-blur-5 bg-gradient-to-b from-gray-120/80 to-#be9c7c/80 rounded-tl-10 rounded-tr-10 rounded-bl-10 border-b-(1px solid #fff) border-l-(1px solid #fff) p-6 xl:(ml-auto mr-0 transform-translate-y-20 max-w-1044px p-20 rounded-tl-20 rounded-tr-20 rounded-bl-20)">
+          <DefaultTitle title="關於我們" white-txt="true" class="mb-10 md:mb-20" />
+          <div class="flex flex-col gap-4 xl:gap-10">
+            <p v-for="(item, ind) in aboutContent" :key="ind" class="text-3.5 tracking-.5px md:(text-4) text-white leading-6" v-html="item.label"></p>
           </div>
         </div>
       </div>
     </section>
     <!-- 房間輪播 -->
-    <section class="bg-gray-120 py-30">
+    <section class="bg-gray-120 py-30 relative">
+      <picture class="absolute  -right-10% top-2.5%  md:( right-0 top-15%)">
+        <source media="max-width:768px" srcset="@/assets/images/deco/room-line-web.png">
+        <img src="@/assets/images/deco/room-line.png" alt="">
+      </picture>
+      <picture class="absolute top-50% right-0 md:( top-45%)">
+        <source media="max-width:768px" srcset="@/assets/images/deco/waveBG-web.png">
+        <img src="@/assets/images/deco/waveBG.png" alt="">
+      </picture>
       <RoomCarousel :room-list="roomInfo" />
     </section>
     <!-- 佳餚 -->
     <section class="relative py-20 ps-3 md:(py-30 ps-0)">
       <DotCube class="absolute right-20 -top-10 hidden md:block" />
-      <img
-        class="absolute hidden md:block"
-        src="@/assets/images/Line2.png"
-        alt=""
-      />
+      <img class="absolute hidden md:block" src="@/assets/images/Line2.png" alt="" />
       <div class="max-w-1296px mx-auto left-10 top-12">
         <DefaultTitle title="佳餚美饌" class="mb-10 md:mb-20" />
         <FoodCarousel :food-list="[aaa]" />
@@ -213,24 +194,14 @@ const trafficInfo = [
         <div class="mb-10">
           <p class="text-white mb-4 font-700">台灣高雄市新興區六角路123號</p>
           <picture>
-            <source
-              srcset="@/assets/images/home-map-sm.png"
-              media="(max-width: 768px)"
-            />
+            <source srcset="@/assets/images/home-map-sm.png" media="(max-width: 768px)" />
             <img src="@/assets/images/home-map.png" alt="享樂酒店 Map" />
           </picture>
         </div>
 
         <ul class="flex flex-col md:flex-row justify-between gap-6">
-          <li
-            v-for="item in trafficInfo"
-            :key="item.title"
-            class="w-100% md:w-33.3333% text-white"
-          >
-            <div
-              class="w-12 h-12 md:(w-20 h-20) mb-4 color-primary"
-              :class="item.icons"
-            ></div>
+          <li v-for="item in trafficInfo" :key="item.title" class="w-100% md:w-33.3333% text-white">
+            <div class="w-12 h-12 md:(w-20 h-20) mb-4 color-primary" :class="item.icons"></div>
             <p class="font-700 md:text-2xl line-height- mb-2">
               {{ item.title }}
             </p>
@@ -240,15 +211,8 @@ const trafficInfo = [
       </div>
 
       <picture>
-        <source
-          srcset="@/assets/images/deco-line-group-horizontal-sm.svg"
-          media="(max-width:768px)"
-        />
-        <img
-          class="w-full"
-          src="@/assets/images/deco-line-group-horizontal-full.svg"
-          alt="deco-line-group"
-        />
+        <source srcset="@/assets/images/deco-line-group-horizontal-sm.svg" media="(max-width:768px)" />
+        <img class="w-full" src="@/assets/images/deco-line-group-horizontal-full.svg" alt="deco-line-group" />
       </picture>
     </section>
   </div>
@@ -259,13 +223,16 @@ const trafficInfo = [
   background-size: 200% 100%;
   animation: titleDecoLine 2s linear infinite;
 }
+
 @keyframes titleDecoLine {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 0%;
   }
+
   100% {
     background-position: 0% 50%;
   }
