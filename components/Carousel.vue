@@ -20,11 +20,11 @@ const props = defineProps({
             <div class="absolute w-full h-full bg-#000/60"></div>
           <picture>
             <source
-              srcset="@/assets/images/home-hero-sm.png"
+              srcset="@/public/images/home-hero-sm.png"
               media="(max-width: 768px)"
             />
             <img
-              src="@/assets/images/home-hero.png"
+              src="@/public/images/home-hero.png"
               alt=""
               class="w-full h-full object-cover"
             />

@@ -10,16 +10,16 @@ const isLogin = ref(false);
       <picture class="absolute top-10% right-0 w-full xl:(w-1/2)">
         <source
           media="(max-width:768px)"
-          srcset="@/assets/images/deco/login-line.svg"
+          srcset="@/public/images/deco/login-line.svg"
         />
         <img
           class="w-full object-cover"
-          src="@/assets/images/deco/login-line-web.svg"
+          src="@/public/images/deco/login-line-web.svg"
           alt=""
         />
       </picture>
       <div class="hidden xl:(block w-50%)">
-        <img src="@/assets/images/login-hero.png" alt="" />
+        <img src="@/public/images/login-hero.png" alt="" />
       </div>
       <div class="w-full px-5 xl:(px-0 w-50%) relative">
         <div class="max-w-416px mx-auto">

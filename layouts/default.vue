@@ -1,7 +1,7 @@
 <script setup ></script>
 
 <template>
-  <section class="w-full overflow-x-hidden">
+  <section class="w-full">
     <LayoutHead />
     <NuxtPage />
     <LayoutFooter />

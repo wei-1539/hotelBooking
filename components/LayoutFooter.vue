@@ -26,7 +26,7 @@ const contentList = [
         <!-- logo + icon -->
          <div class="flex flex-col mb-10 md:mb-0">
             <NuxtLink to="/" class="hover-opacity-90 duration-300 block w-100% mb-10">
-              <img src="@/assets/images/logo-white.svg" alt="享樂酒店 Enjoyment Luxury Hotel">
+              <img src="@/public/images/logo-white.svg" alt="享樂酒店 Enjoyment Luxury Hotel">
             </NuxtLink>
             <ul class="flex gap-4">
               <li class="border-(1 solid white)  p-2 rounded-full hover-opacity-90 duration-300 cursor-pointer">

@@ -30,24 +30,24 @@ const aboutContent = [
 // 最新消息
 const newsInfo = [
   {
-    pcImg: "/_nuxt/assets/images/home-news-1.png",
-    spImg: "/_nuxt/assets/images/home-news-sm-1.png",
+    pcImg: "/_nuxt/public/images/home-news-1.png",
+    spImg: "/_nuxt/public/images/home-news-sm-1.png",
     title: "秋季旅遊，豪華享受方案",
     content:
       "秋天就是要來場豪華的旅遊！我們為您準備了一系列的秋季特別方案，包括舒適的住宿、美食饗宴，以及精彩的活動。不論您是想來一趟浪漫之旅，還是想和家人共度美好時光，都能在這裡找到最適合的方案。",
   },
 
   {
-    pcImg: "/_nuxt/assets/images/home-news-2.png",
-    spImg: "/_nuxt/assets/images/home-news-sm-2.png",
+    pcImg: "/_nuxt/public/images/home-news-2.png",
+    spImg: "/_nuxt/public/images/home-news-sm-2.png",
     title: "輕鬆住房專案",
     content:
       "我們知道，有時候您只是需要一個舒適的地方放鬆心情。因此，我們推出了「輕鬆住房專案」，讓您無壓力地享受住宿。不管是短期的休息，還是長期的住宿，我們都會以最貼心的服務，讓您感到賓至如歸。",
   },
 
   {
-    pcImg: "/_nuxt/assets/images/home-news-3.png",
-    spImg: "/_nuxt/assets/images/home-news-sm-3.png",
+    pcImg: "/_nuxt/public/images/home-news-3.png",
+    spImg: "/_nuxt/public/images/home-news-sm-3.png",
     title: "耶誕快樂，住房送禮",
     content:
       "聖誕節來臨，我們為您準備了特別的禮物！在聖誕期間訂房，不僅有特別優惠，還會送上我們精心準備的聖誕禮物。讓我們一起慶祝這個溫馨的節日吧！",
@@ -56,20 +56,20 @@ const newsInfo = [
 // 房間
 const roomInfo = [
   {
-    spImg: "@/assets/images/home-room-sm-1.png",
-    pcImg: "@/assets/images/home-room-1.png",
+    spImg: "@/public/images/home-room-sm-1.png",
+    pcImg: "@/public/images/home-room-1.png",
   },
   {
-    spImg: "@/assets/images/home-room-sm-1.png",
-    pcImg: "@/assets/images/home-room-1.png",
+    spImg: "@/public/images/home-room-sm-1.png",
+    pcImg: "@/public/images/home-room-1.png",
   },
   {
-    spImg: "@/assets/images/home-room-sm-1.png",
-    pcImg: "@/assets/images/home-room-1.png",
+    spImg: "@/public/images/home-room-sm-1.png",
+    pcImg: "@/public/images/home-room-1.png",
   },
   {
-    spImg: "@/assets/images/home-room-sm-1.png",
-    pcImg: "@/assets/images/home-room-1.png",
+    spImg: "@/public/images/home-room-sm-1.png",
+    pcImg: "@/public/images/home-room-1.png",
   },
 ];
 // 交通資訊
@@ -96,7 +96,7 @@ const trafficInfo = [
 </script>
 
 <template>
-  <div>
+  <div class="overflow-hidden">
     <!-- FV -->
     <section class="w-full h-100vh md:h-full relative">
       <Carousel />
@@ -153,8 +153,8 @@ const trafficInfo = [
     <section class="bg-gray pt-20 pb-30 md:(pt-30 pb-50) relative">
       <DotCube class="absolute h-100px w-100px -top-5% left-5% z-2 md:(w-200px h-200px left-10% -top-12.5%)" />
       <picture class="absolute left-0 top-20 md:(top-30) w-full h-full max-h-672px">
-        <source srcset="@/assets/images/home-about-sm.png" media="(max-width: 768px)" />
-        <img class="w-full h-full object-cover object-center" src="@/assets/images/home-about.png" alt="關於我們" />
+        <source srcset="@/public/images/home-about-sm.png" media="(max-width: 768px)" />
+        <img class="w-full h-full object-cover object-center" src="@/public/images/home-about.png" alt="關於我們" />
       </picture>
       <div class="max-w-1296px mx-auto relative">
         <div
@@ -169,19 +169,19 @@ const trafficInfo = [
     <!-- 房間輪播 -->
     <section class="bg-gray-120 py-30 relative">
       <picture class="absolute  -right-10% top-2.5%  md:( right-0 top-15%)">
-        <source media="max-width:768px" srcset="@/assets/images/deco/room-line-web.png">
-        <img src="@/assets/images/deco/room-line.png" alt="">
+        <source media="max-width:768px" srcset="@/public/images/deco/room-line-web.png">
+        <img src="@/public/images/deco/room-line.png" alt="">
       </picture>
       <picture class="absolute top-50% right-0 md:( top-45%)">
-        <source media="max-width:768px" srcset="@/assets/images/deco/waveBG-web.png">
-        <img src="@/assets/images/deco/waveBG.png" alt="">
+        <source media="max-width:768px" srcset="@/public/images/deco/waveBG-web.png">
+        <img src="@/public/images/deco/waveBG.png" alt="">
       </picture>
       <RoomCarousel :room-list="roomInfo" />
     </section>
     <!-- 佳餚 -->
     <section class="relative py-20 ps-3 md:(py-30 ps-0)">
       <DotCube class="absolute right-20 -top-10 hidden md:block" />
-      <img class="absolute hidden md:block" src="@/assets/images/Line2.png" alt="" />
+      <img class="absolute hidden md:block" src="@/public/images/Line2.png" alt="" />
       <div class="max-w-1296px mx-auto left-10 top-12">
         <DefaultTitle title="佳餚美饌" class="mb-10 md:mb-20" />
         <FoodCarousel :food-list="[aaa]" />
@@ -194,8 +194,8 @@ const trafficInfo = [
         <div class="mb-10">
           <p class="text-white mb-4 font-700">台灣高雄市新興區六角路123號</p>
           <picture>
-            <source srcset="@/assets/images/home-map-sm.png" media="(max-width: 768px)" />
-            <img src="@/assets/images/home-map.png" alt="享樂酒店 Map" />
+            <source srcset="@/public/images/home-map-sm.png" media="(max-width: 768px)" />
+            <img src="@/public/images/home-map.png" alt="享樂酒店 Map" />
           </picture>
         </div>
 
@@ -211,8 +211,8 @@ const trafficInfo = [
       </div>
 
       <picture>
-        <source srcset="@/assets/images/deco-line-group-horizontal-sm.svg" media="(max-width:768px)" />
-        <img class="w-full" src="@/assets/images/deco-line-group-horizontal-full.svg" alt="deco-line-group" />
+        <source srcset="@/public/images/deco-line-group-horizontal-sm.svg" media="(max-width:768px)" />
+        <img class="w-full" src="@/public/images/deco-line-group-horizontal-full.svg" alt="deco-line-group" />
       </picture>
     </section>
   </div>

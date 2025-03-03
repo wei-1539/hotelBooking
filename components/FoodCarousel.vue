@@ -18,12 +18,12 @@ const props = defineProps({
         <div class="relative rounded-3 overflow-hidden">
           <picture >
             <source
-              srcset="@/assets/images/home-food-2.png"
+              srcset="@/public/images/home-food-2.png"
               media="(min-width: 576px)"
             />
             <img
               class="w-full rounded-3"
-              src="@/assets/images/home-food-sm-2.png"
+              src="@/public/images/home-food-sm-2.png"
               alt="日食"
             />
           </picture>

@@ -26,10 +26,10 @@ const props = defineProps({
           <SwiperSlide v-for="(item, ind) in props.roomList" :key="ind">
             <picture>
               <source
-                srcset="@/assets/images/home-room-sm-1.png"
+                srcset="@/public/images/home-room-sm-1.png"
                 media="(max-width: 768px)"
               />
-              <img src="@/assets/images/home-room-1.png" alt="" />
+              <img src="@/public/images/home-room-1.png" alt="" />
             </picture>
           </SwiperSlide>
 

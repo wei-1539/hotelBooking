@@ -37,11 +37,11 @@ const infoData = [
             <div class="absolute w-full h-full bg-#000/60"></div>
           <picture>
             <source
-              srcset="@/assets/images/home-hero-sm.png"
+              srcset="@/public/images/home-hero-sm.png"
               media="(max-width: 768px)"
             />
             <img
-              src="@/assets/images/home-hero.png"
+              src="@/public/images/home-hero.png"
               alt=""
               class="w-full max-h-466px  md:(max-h-800px) object-cover"
             />
@@ -84,8 +84,8 @@ const infoData = [
                   >
                     <SwiperSlide v-for="n in 5" :key="n"> 
                       <picture>
-                        <source srcset="@/assets/images/room-a-sm-1.png"  media="(max-width: 768px)">
-                        <img class="w-full object-cover" src="@/assets/images/room-a-1.png" alt="">
+                        <source srcset="@/public/images/room-a-sm-1.png"  media="(max-width: 768px)">
+                        <img class="w-full object-cover" src="@/public/images/room-a-1.png" alt="">
                       </picture>
                     </SwiperSlide>
                   </Swiper>
@@ -98,7 +98,7 @@ const infoData = [
                   <i class="i-fluent:ios-arrow-right-24-filled color-gray block text-5 -transform-translate-x-10%"></i>
                 </div>
               </div>
-              <NuxtLink to="/" class="roomDetail max-w-523px w-full  p-4 md:(p-6 w-40%) xl:(p-10 w-full) bg-white block decoration-none">  
+              <NuxtLink to="/rooms/123" class="roomDetail max-w-523px w-full  p-4 md:(p-6 w-40%) xl:(p-10 w-full) bg-white block decoration-none">  
                 <h2 class="text-7 leading-8.4 tracking-.5 mb-2 md(text-8.5 leading-10) xl:(text-10 leading-12) font-bold text-gray">尊爵雙人房</h2>
                 <p class="text-3.5 leading-5.5 text-gray-80">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
                 <RoomInfo class="my-6 xl:(my-10)" :roomInfoData="infoData"/>
