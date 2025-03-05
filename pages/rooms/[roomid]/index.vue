@@ -176,6 +176,9 @@ const knowList = [
         </div>
       </div>
     </section>
+
+    <!-- checkDate Model -->
+    <RoomDateModel />
   </main>
 </template>
 <style scoped></style>

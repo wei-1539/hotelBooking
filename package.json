@@ -10,8 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "nuxt": "^3.15.0",
     "swiper": "^11.1.14",
+    "v-calendar": "^3.1.2",
     "vue": "latest",
     "vue-router": "latest"
   },
