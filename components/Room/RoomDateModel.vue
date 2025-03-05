@@ -2,6 +2,11 @@
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
+const dateTest = ref({
+    start: new Date(2024, 10, 7),
+    end: new Date(2024, 10, 9),
+})
+
 </script>
 <template>
     <section class="fixed top-0 left-0 w-100dvw h-100dvh bg-gray bg-op-50 backdrop-blur-2">
@@ -28,18 +33,84 @@ import 'v-calendar/style.css';
                 </div>
             </div>
             <!-- 選日期 -->
-            <div class="w-full mb-10">
+            <div class="w-full mb-10 data-picker">
 
-                <DatePicker expanded :columns="2"  class="border-none" />
+                <DatePicker expanded :columns="2" color="primary"  v-model="dateTest" :attributes="attrs"/>
             </div>
 
             <!-- 確認按鈕 -->
-           <div class="flex justify-end gap-4">
-               <button type="button" class="text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
-                <button type="button" class="text-4 leading-6 font-bold text-center text-white  bg-primary px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">確定日期</button>
-           </div>
+            <div class="flex justify-end gap-4">
+                <button type="button"
+                    class="text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
+                <button type="button"
+                    class="text-4 leading-6 font-bold text-center text-white  bg-primary px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">確定日期</button>
+            </div>
         </div>
 
     </section>
 </template>
-<style scoped></style>
+<style scoped>
+.date-picker :deep(.vc-primary) {
+    --vc-accent-50: #f0f9ff;
+    --vc-accent-100: #e0f2fe;
+    --vc-accent-200: #F9F9F9;
+    --vc-accent-300: #7dd3fc;
+    --vc-accent-400: #38bdf8;
+    --vc-accent-500: #0ea5e9;
+    --vc-accent-600: #000000;
+    --vc-accent-700: #FFFFFF;
+    --vc-accent-800: #F9F9F9;
+    --vc-accent-900: #000000;
+}
+
+.data-picker :deep(.vc-container) {
+    --vc-font-family: font-family: 'Noto Serif TC', sans-serif;
+}
+
+.data-picker :deep(.vc-bordered) {
+    border: none;
+}
+
+.data-picker :deep(.vc-arrow) {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+}
+
+.data-picker :deep(.vc-title) {
+    background-color: transparent;
+    color: #000000;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.data-picker :deep(.vc-day) {
+    min-height: 44px;
+}
+
+.data-picker :deep(.vc-weekday) {
+    --vc-weekday-color: #4B4B4B;
+    font-size: var(--vc-text-base);
+    line-height: 24px;
+    padding: 12px 14px 8px 14px;
+}
+
+.data-picker :deep(.vc-day-content) {
+    font-size: var(--vc-text-base);
+    line-height: 24px;
+    font-weight: 700;
+    width: 44px;
+    height: 44px;
+}
+
+.date-picker :deep(.vc-highlight) {
+    width: 44px;
+    height: 44px;
+    background-color: var(--vc-accent-600) 
+}
+
+.date-picker :deep(.vc-attr) {
+    --vc-highlight-outline-bg: #000000;
+}
+</style>
