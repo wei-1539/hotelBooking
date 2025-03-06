@@ -2,11 +2,33 @@
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import 'v-calendar/style.css';
 
-const dateTest = ref({
-    start: new Date(2024, 10, 7),
-    end: new Date(2024, 10, 9),
-})
+// 訂房時間資料
+const tempDate = reactive({
+    date: {
+        start: '',
+        end: '',
+    },
 
+});
+// 訂房年月處理
+const masks = {
+    title: 'YYYY年MM月',
+    modelValue: 'YYYY-MM-DD'
+}
+// 計算天數
+const dayCount = computed(() => {
+    const startDate = tempDate.date.start;
+    const endDate = tempDate.date.end;
+    // 判斷是否有選擇日期 沒有的話回傳0
+    if (startDate === null || endDate === null) {
+        return 0;
+    }
+    // 計算差異時間
+    const differenceTime = new Date(endDate).getTime() - new Date(startDate).getTime();
+    // 計算天數
+    const differenceDays = Math.round(differenceTime / (1000 * 60 * 60 * 24));
+    return differenceDays;
+})
 </script>
 <template>
     <section class="fixed top-0 left-0 w-100dvw h-100dvh bg-gray bg-op-50 backdrop-blur-2">
@@ -14,7 +36,7 @@ const dateTest = ref({
             class="absolute max-w-740px w-full top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% bg-white rounded-5 p-8">
             <div class="flex mb-10">
                 <div class="w-40%">
-                    <h2 class="text-6 leading-7.2 tracking-5px  font-bold mb-2">1晚</h2>
+                    <h2 class="text-6 leading-7.2 tracking-5px  font-bold mb-2">{{ dayCount }}晚</h2>
                     <ul class="flex gap-2 text-4 leading-6">
                         <li>2023/ 12 / 03</li>
                         <li>~</li>
@@ -33,9 +55,10 @@ const dateTest = ref({
                 </div>
             </div>
             <!-- 選日期 -->
-            <div class="w-full mb-10 data-picker">
 
-                <DatePicker expanded :columns="2" color="primary"  v-model="dateTest" :attributes="attrs"/>
+            <div class="w-full mb-10 date-picker">
+
+                <DatePicker expanded :columns="2" color="primary" :masks="masks" v-model.range.string="tempDate.date" />
             </div>
 
             <!-- 確認按鈕 -->
@@ -53,31 +76,35 @@ const dateTest = ref({
 .date-picker :deep(.vc-primary) {
     --vc-accent-50: #f0f9ff;
     --vc-accent-100: #e0f2fe;
-    --vc-accent-200: #F9F9F9;
+    --vc-accent-200: #f1f1f1;
     --vc-accent-300: #7dd3fc;
     --vc-accent-400: #38bdf8;
     --vc-accent-500: #0ea5e9;
     --vc-accent-600: #000000;
     --vc-accent-700: #FFFFFF;
     --vc-accent-800: #F9F9F9;
-    --vc-accent-900: #000000;
+    --vc-accent-900: #000;
 }
 
-.data-picker :deep(.vc-container) {
+.date-picker :deep(.vc-container) {
     --vc-font-family: font-family: 'Noto Serif TC', sans-serif;
 }
 
-.data-picker :deep(.vc-bordered) {
+.date-picker :deep(.vc-pane-layout) {
+    gap: 5%;
+}
+
+.date-picker :deep(.vc-bordered) {
     border: none;
 }
 
-.data-picker :deep(.vc-arrow) {
+.date-picker :deep(.vc-arrow) {
     width: 24px;
     height: 24px;
     background-color: transparent;
 }
 
-.data-picker :deep(.vc-title) {
+.date-picker :deep(.vc-title) {
     background-color: transparent;
     color: #000000;
     font-size: 1.25rem;
@@ -85,18 +112,26 @@ const dateTest = ref({
     line-height: 24px;
 }
 
-.data-picker :deep(.vc-day) {
-    min-height: 44px;
+
+.date-picker :deep(.vc-weeks) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.data-picker :deep(.vc-weekday) {
+.date-picker :deep(.vc-week) {
+    grid-template-columns: repeat(7, 0fr);
+}
+
+
+.date-picker :deep(.vc-weekday) {
     --vc-weekday-color: #4B4B4B;
     font-size: var(--vc-text-base);
     line-height: 24px;
     padding: 12px 14px 8px 14px;
 }
 
-.data-picker :deep(.vc-day-content) {
+.date-picker :deep(.vc-day-content) {
     font-size: var(--vc-text-base);
     line-height: 24px;
     font-weight: 700;
@@ -107,7 +142,7 @@ const dateTest = ref({
 .date-picker :deep(.vc-highlight) {
     width: 44px;
     height: 44px;
-    background-color: var(--vc-accent-600) 
+    /* background-color: var(--vc-accent-600) */
 }
 
 .date-picker :deep(.vc-attr) {
