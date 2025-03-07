@@ -76,6 +76,8 @@ const knowList = [
   { txt: '我們提供24小時櫃檯服務，若有任何需求或疑問，歡迎隨時詢問。' },
   { txt: '為了確保所有客人的安全，請勿在走廊或公共區域大聲喧嘩，並遵守酒店的其他規定。' },
 ]
+
+const isBolean = ref(false);
 </script>
 <template>
   <main class="mt-30 bg-primary-10">
@@ -140,7 +142,7 @@ const knowList = [
                   <label for="#checkIn" class="block text-3.5 leading-4.5 cursor-pointer ">入住</label>
                   <input id="checkIn" type="date" placeholder="yyyy/mm/dd"
                     class="border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
-                    disabled readonly>
+                    readonly @click="isBolean = !isBolean">
                 </div>
                 <!-- 退房 -->
                 <div
@@ -148,27 +150,32 @@ const knowList = [
                   <label for="#checkOut" class="block text-3.5 leading-4.5 cursor-pointer ">退房</label>
                   <input id="checkOut" type="date" placeholder="yyyy/mm/dd"
                     class="border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
-                    disabled readonly>
+                    readonly @click="isBolean = !isBolean">
                 </div>
               </div>
 
               <div class="choosePeople flex justify-between items-center mb-10">
                 <p class="text-4 leading-6 font-bold tracking-.25px">人數</p>
                 <div class="flex gap-4 items-center">
-                  <button type="button" class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                    <i class="i-material-symbols:check-indeterminate-small text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                  <button type="button"
+                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                    <i
+                      class="i-material-symbols:check-indeterminate-small text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
                   </button>
                   <h6>2</h6>
-                  <button type="button" class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                    <i class="i-material-symbols:add text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                  <button type="button"
+                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                    <i
+                      class="i-material-symbols:add text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
                   </button>
                 </div>
               </div>
 
               <!-- 總價錢 -->
-               <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$ 10,000</h2>
+              <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$ 10,000</h2>
 
-               <button type="button" class="text-4 leading-6 font-bold text-center text-white w-full bg-primary p-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">立即預訂</button>
+              <button type="button"
+                class="text-4 leading-6 font-bold text-center text-white w-full bg-primary p-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">立即預訂</button>
 
             </div>
 
@@ -178,7 +185,7 @@ const knowList = [
     </section>
 
     <!-- checkDate Model -->
-    <RoomDateModel />
+    <RoomDateModel :openModel="isBolean" />
   </main>
 </template>
 <style scoped></style>
