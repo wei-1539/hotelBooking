@@ -78,6 +78,31 @@ const knowList = [
 ]
 
 const isBolean = ref(false);
+
+
+// 外層用的資料
+const bookingInfo = reactive({
+  date: {
+    start: null,
+    end: null,
+  },
+  dayCount: 0,
+  checkPeople: 1,
+});
+// 最大入住人數
+const MAX_BOOKING_PEOPLE = 10;
+// 取出 model 訂房日期資料
+const handleDateChange = (bookingDate) => {
+
+  const { start, end } = bookingDate.date;
+  bookingInfo.date.start = start;
+  bookingInfo.date.end = end;
+  bookingInfo.dayCount = bookingDate.dayCount;
+};
+function numberTitle(num) {
+// toLocaleString() 方法返回這個『數字』在特定語言環境下的表示字符串。
+  return num.toLocaleString()
+}
 </script>
 <template>
   <main class="mt-30 bg-primary-10">
@@ -137,42 +162,54 @@ const isBolean = ref(false);
 
               <div class="chooseDate flex gap-2 mb-4">
                 <!-- 入住 -->
-                <div
+                <div @click="isBolean = !isBolean"
                   class="group p-4 rounded-2 border-(1px solid #000) cursor-pointer w-full hover:(bg-dark text-white ) group-hover:( text-white) duration-300">
-                  <label for="#checkIn" class="block text-3.5 leading-4.5 cursor-pointer ">入住</label>
+                  <label for="#checkIn"
+                    class="pointer-events-none block text-3.5 leading-4.5 cursor-pointer ">入住</label>
                   <input id="checkIn" type="date" placeholder="yyyy/mm/dd"
-                    class="border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
-                    readonly @click="isBolean = !isBolean">
+                    class="pointer-events-none border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
+                    readonly disabled :value="bookingInfo.date.start">
                 </div>
                 <!-- 退房 -->
-                <div
+                <div @click="isBolean = !isBolean"
                   class="group p-4 rounded-2 border-(1px solid #000) cursor-pointer w-full hover:(bg-dark text-white ) group-hover:( text-white) duration-300">
-                  <label for="#checkOut" class="block text-3.5 leading-4.5 cursor-pointer ">退房</label>
+                  <label for="#checkOut"
+                    class="pointer-events-none block text-3.5 leading-4.5 cursor-pointer ">退房</label>
                   <input id="checkOut" type="date" placeholder="yyyy/mm/dd"
-                    class="border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
-                    readonly @click="isBolean = !isBolean">
+                    class="pointer-events-none border-none text-4 leading-6 tracking-.25px bg-transparent cursor-pointer  group-hover:( text-white)"
+                    readonly disabled :value="bookingInfo.date.end">
                 </div>
               </div>
-
+              <section  class="text-4 leading-6 font-bold tracking-.25px text-gray-80 text-right mb-4">
+                <span :class="bookingInfo.dayCount===0 ?'hidden':'inline-block'">共 {{ bookingInfo.dayCount }} 晚 / </span>
+                <span> ( 1晚 NT$ 10,000 )</span>
+              </section>
+              <!-- 人數 -->
               <div class="choosePeople flex justify-between items-center mb-10">
                 <p class="text-4 leading-6 font-bold tracking-.25px">人數</p>
                 <div class="flex gap-4 items-center">
-                  <button type="button"
-                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                    <i
-                      class="i-material-symbols:check-indeterminate-small text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                  <button type="button" :disabled="bookingInfo.checkPeople === 1" @click="bookingInfo.checkPeople--"
+                    :class="bookingInfo.checkPeople === 1 ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
+                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                    <i :class="bookingInfo.checkPeople === 1 ? 'text-gray-40' : 'text-dark'"
+                      class="i-material-symbols:check-indeterminate-small text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
                   </button>
-                  <h6>2</h6>
-                  <button type="button"
-                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer hover:(bg-dark ) group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                    <i
-                      class="i-material-symbols:add text-6 text-dark inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                  <h6>{{ bookingInfo.checkPeople }}</h6>
+                  <button type="button" :disabled="bookingInfo.checkPeople === MAX_BOOKING_PEOPLE"
+                    @click="bookingInfo.checkPeople++"
+                    :class="bookingInfo.checkPeople === MAX_BOOKING_PEOPLE ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
+                    class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer  group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                    <i :class="bookingInfo.checkPeople === MAX_BOOKING_PEOPLE ? 'text-gray-40' : 'text-dark'"
+                      class="i-material-symbols:add text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
                   </button>
                 </div>
               </div>
 
               <!-- 總價錢 -->
-              <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$ 10,000</h2>
+              <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$ 
+                <span :class="bookingInfo.dayCount !==0 ? 'hidden':'inline'"> {{numberTitle(10000 * bookingInfo.checkPeople)}}</span>
+                <span :class="bookingInfo.dayCount ===0 ? 'hidden':'inline'">{{numberTitle(10000 * bookingInfo.dayCount * bookingInfo.checkPeople)}}</span>
+              </h2>
 
               <button type="button"
                 class="text-4 leading-6 font-bold text-center text-white w-full bg-primary p-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">立即預訂</button>
@@ -185,7 +222,7 @@ const isBolean = ref(false);
     </section>
 
     <!-- checkDate Model -->
-    <RoomDateModel :openModel="isBolean" />
+    <RoomDateModel :openModel="isBolean" @update:open-model="handleDateChange" />
   </main>
 </template>
 <style scoped></style>

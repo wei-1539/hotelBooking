@@ -61,6 +61,10 @@ const clearDate = () => {
 }
 // 送出訂房資料
 const confirmDate = () => {
+    emit('update:openModel', {
+        date: tempDate.date,
+        dayCount: dayCount.value,
+    });
    closeModel();
 }
 </script>
