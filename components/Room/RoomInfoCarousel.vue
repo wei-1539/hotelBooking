@@ -1,5 +1,8 @@
 <script setup>
 import { Autoplay, Pagination } from "swiper/modules";
+const props = defineProps({
+  roomDetailInfo: { type: Array },
+});
 </script>
 <template>
   <div class="w-full h-full">
@@ -13,15 +16,14 @@ import { Autoplay, Pagination } from "swiper/modules";
         :pagination="{ clickable: true, el: '.swiper-pagination' }"
         :modules="[Autoplay, Pagination]"
       >
-        <SwiperSlide v-for="n in 5" :key="n">
-            <div class="absolute w-full h-full bg-#000/60"></div>
+        <SwiperSlide v-for="(item,ind) in props.roomDetailInfo" :key="ind">
           <picture>
             <source
-              srcset="@/public/images/home-hero-sm.png"
+              :srcset="item.spImg"
               media="(max-width: 768px)"
             />
             <img
-              src="@/public/images/home-hero.png"
+              :src="item.pcImg"
               alt=""
               class="w-full max-h-466px  md:(max-h-800px) object-cover"
             />
@@ -29,6 +31,7 @@ import { Autoplay, Pagination } from "swiper/modules";
         </SwiperSlide>
       </Swiper>
     </ClientOnly>
+    
   </div>
 </template>
 <style scoped></style>

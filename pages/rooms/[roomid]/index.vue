@@ -100,14 +100,14 @@ const handleDateChange = (bookingDate) => {
   bookingInfo.dayCount = bookingDate.dayCount;
 };
 function numberTitle(num) {
-// toLocaleString() 方法返回這個『數字』在特定語言環境下的表示字符串。
+  // toLocaleString() 方法返回這個『數字』在特定語言環境下的表示字符串。
   return num.toLocaleString()
 }
 </script>
 <template>
-  <main class="mt-30 bg-primary-10">
+  <main class="mt-18 md:( mt-30) bg-primary-10">
 
-    <section class="w-full p-20 ">
+    <section class="w-full hidden md:(block p-10) lg:(p-20) ">
       <div class="flex rounded-5 gap-2 overflow-hidden">
         <picture class="max-w-978px w-full">
           <source media="max-width:768px" :srcset="`${roomDetailInfo[0].spImg}`">
@@ -123,17 +123,18 @@ function numberTitle(num) {
         </ul>
       </div>
     </section>
+    <RoomInfoCarousel class="md:(hidden)"  :room-detail-info="roomDetailInfo"/>
     <!-- 房型內容 ＆ 預定時間 -->
     <section>
-      <div class="max-w-1296px mx-auto py-30 ">
+      <div class="max-w-1296px mx-auto py-10 px-3 md:(px-8 py-20) lg:(py-30 px-0)">
         <div class="flex gap-18 ">
           <!-- 詳細介紹 -->
           <div class="max-w-746px">
-            <div class="mb-20">
-              <h2 class="text-12 leading-14.5 font-bold mb-4">尊爵雙人房</h2>
-              <p class="text-gray-80 leading-6">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
+            <div class="mb-6 md:(mb-20)">
+              <h2 class="text-8 leading-9.5 md:(text-12 leading-14.5) font-bold mb-4">尊爵雙人房</h2>
+              <p class="text-3.5 tracking-.5px md:(text-4) text-gray-80 leading-6">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
             </div>
-            <div class="flex flex-col gap-20">
+            <div class="flex flex-col gap-6 md:(gap-13) lg:(gap-20)">
 
               <RoomDetailCheck title="房間格局" :detailCheckData="roomlayoutInfo" />
               <RoomDetailCheck title="房內設備" :detailCheckData="roomlayoutInfo" />
@@ -180,8 +181,9 @@ function numberTitle(num) {
                     readonly disabled :value="bookingInfo.date.end">
                 </div>
               </div>
-              <section  class="text-4 leading-6 font-bold tracking-.25px text-gray-80 text-right mb-4">
-                <span :class="bookingInfo.dayCount===0 ?'hidden':'inline-block'">共 {{ bookingInfo.dayCount }} 晚 / </span>
+              <section class="text-4 leading-6 font-bold tracking-.25px text-gray-80 text-right mb-4">
+                <span :class="bookingInfo.dayCount === 0 ? 'hidden' : 'inline-block'">共 {{ bookingInfo.dayCount }} 晚 /
+                </span>
                 <span> ( 1晚 NT$ 10,000 )</span>
               </section>
               <!-- 人數 -->
@@ -206,9 +208,11 @@ function numberTitle(num) {
               </div>
 
               <!-- 總價錢 -->
-              <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$ 
-                <span :class="bookingInfo.dayCount !==0 ? 'hidden':'inline'"> {{numberTitle(10000 * bookingInfo.checkPeople)}}</span>
-                <span :class="bookingInfo.dayCount ===0 ? 'hidden':'inline'">{{numberTitle(10000 * bookingInfo.dayCount * bookingInfo.checkPeople)}}</span>
+              <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$
+                <span :class="bookingInfo.dayCount !== 0 ? 'hidden' : 'inline'"> {{ numberTitle(10000 *
+                  bookingInfo.checkPeople)}}</span>
+                <span :class="bookingInfo.dayCount === 0 ? 'hidden' : 'inline'">{{ numberTitle(10000 * bookingInfo.dayCount
+                  * bookingInfo.checkPeople)}}</span>
               </h2>
 
               <button type="button"
