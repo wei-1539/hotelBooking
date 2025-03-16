@@ -83,7 +83,7 @@ const isBolean = ref(false);
 // 外層用的資料
 const bookingInfo = reactive({
   date: {
-    start: null,
+    start: new Date(),
     end: null,
   },
   dayCount: 0,
@@ -98,10 +98,15 @@ const handleDateChange = (bookingDate) => {
   bookingInfo.date.start = start;
   bookingInfo.date.end = end;
   bookingInfo.dayCount = bookingDate.dayCount;
+  bookingInfo.checkPeople = bookingDate.people || 1;
 };
 function numberTitle(num) {
   // toLocaleString() 方法返回這個『數字』在特定語言環境下的表示字符串。
   return num.toLocaleString()
+}
+// 只顯示月＆日
+const dateTitle =(date)=>{
+  return date.split('-').slice(1).join(' - ')
 }
 </script>
 <template>
@@ -123,7 +128,7 @@ function numberTitle(num) {
         </ul>
       </div>
     </section>
-    <RoomInfoCarousel class="md:(hidden)"  :room-detail-info="roomDetailInfo"/>
+    <RoomInfoCarousel class="md:(hidden)" :room-detail-info="roomDetailInfo" />
     <!-- 房型內容 ＆ 預定時間 -->
     <section>
       <div class="max-w-1296px mx-auto py-10 px-3 md:(px-8 py-20) lg:(py-30 px-0)">
@@ -210,9 +215,10 @@ function numberTitle(num) {
               <!-- 總價錢 -->
               <h2 class="text-6 leading-7.2 tracking-.25px text-primary font-bold mb-10 ">NT$
                 <span :class="bookingInfo.dayCount !== 0 ? 'hidden' : 'inline'"> {{ numberTitle(10000 *
-                  bookingInfo.checkPeople)}}</span>
-                <span :class="bookingInfo.dayCount === 0 ? 'hidden' : 'inline'">{{ numberTitle(10000 * bookingInfo.dayCount
-                  * bookingInfo.checkPeople)}}</span>
+                  bookingInfo.checkPeople) }}</span>
+                <span :class="bookingInfo.dayCount === 0 ? 'hidden' : 'inline'">{{ numberTitle(10000 *
+                  bookingInfo.dayCount
+                  * bookingInfo.checkPeople) }}</span>
               </h2>
 
               <button type="button"
@@ -225,6 +231,34 @@ function numberTitle(num) {
       </div>
     </section>
 
+    <section class="md:hidden fixed bottom-0 left-0 w-full z-10  bg-white border-t-(1px solid #ececec) p-3">
+      <div v-if="bookingInfo.dayCount === 0">
+        <div class="flex items-center justify-between ">
+
+          <p class="w-1/2 text-3.5 leading-5.5 tracking-.25px">
+            ＮＴ$ 10,000 / 晚
+          </p>
+          <button type="button" @click="isBolean = !isBolean"
+            class="text-4 leading-6 font-bold text-center text-white w-1/2 bg-primary p-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">
+            查看可訂日期
+          </button>
+        </div>
+      </div>
+
+      <div v-else>
+        <div class="flex items-center justify-between">
+          <div class="w-1/2 text-3.5 leading-5.5 tracking-.25px">
+            <p class="mb-2"> ＮＴ$ 10,000 / {{ bookingInfo.dayCount }}晚 / {{ bookingInfo.checkPeople }}人</p>
+            <p>{{ dateTitle(bookingInfo.date.start) }} ~ {{ dateTitle(bookingInfo.date.end) }}</p>
+          </div>
+          <button type="button"
+            class="text-4 leading-6 font-bold text-center text-white w-1/2 bg-primary p-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">
+            立即預訂
+          </button>
+        </div>
+      </div>
+
+    </section>
     <!-- checkDate Model -->
     <RoomDateModel :openModel="isBolean" @update:open-model="handleDateChange" />
   </main>
