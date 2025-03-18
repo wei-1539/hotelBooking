@@ -231,7 +231,7 @@ const dateTitle =(date)=>{
       </div>
     </section>
 
-    <section class="md:hidden fixed bottom-0 left-0 w-full z-10  bg-white border-t-(1px solid #ececec) p-3">
+    <section class="md:hidden fixed bottom-0 left-0 w-full z-5  bg-white border-t-(1px solid #ececec) p-3">
       <div v-if="bookingInfo.dayCount === 0">
         <div class="flex items-center justify-between ">
 

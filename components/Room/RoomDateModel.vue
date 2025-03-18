@@ -7,7 +7,7 @@ import { useScreens } from 'vue-screen-utils'
 const { mapCurrent } = useScreens({
     md: '768px',
 });
-const rows = mapCurrent({ md: 1 }, 2);
+const rows = mapCurrent({ md: 1 }, 1);
 const columns = mapCurrent({ md: 2 }, 1);
 const expanded = mapCurrent({ md: true }, false);
 const titlePosition = mapCurrent({ md: "center" }, "left");
@@ -27,6 +27,7 @@ const model = ref(props.openModel);
 watch(() => props.openModel, (newVal) => {
     model.value = newVal;
 })
+
 // 關閉視窗
 const closeModel = () => {
     model.value = !props.openModel;
@@ -71,13 +72,13 @@ const clearDate = () => {
 // 送出訂房資料
 const confirmDate = () => {
     const isMobile = mapCurrent({ md: true }, false);
-    if(isMobile){
+    if (isMobile) {
         emit('update:openModel', {
             date: tempDate.date,
             dayCount: dayCount.value,
             people: bookingPeopleMobile.value,
         });
-    }else{
+    } else {
 
         emit('update:openModel', {
             date: tempDate.date,
@@ -94,118 +95,133 @@ const confirmDateMobile = () => {
 }
 const MAX_BOOKING_PEOPLE = 10;
 const bookingPeopleMobile = ref(1);
+
+
 </script>
 <template>
     <section :class="[model ? 'op-100 visible ' : 'op-0 invisible']"
-        class="z-15 bottom-0  w-full h-98dvh md:(z-10 top-0 left-0 w-100dvw h-100dvh) fixed  bg-gray bg-op-50 backdrop-blur-2">
-        <div :class="isConfirmDateMobile ? 'bottom-0' : 'mt-0 h-full'"
-            class="relative max-w-740px overflow-scroll w-full  pb-4 px-6 rounded-t-5 md:(overflow-hidden max-w-740px h-auto top-50% left-50% -transform-translate-x-50% -transform-translate-y-50%  p-8 rounded-5) bg-white ">
-            <!-- PC -->
-            <div class="hidden  md:flex mb-10 items-center">
-                <div class="w-40%">
-                    <h2 class="text-6 leading-7.2 tracking-.5px  font-bold mb-2">{{ dayCount }} 晚</h2>
-                    <ul class="flex text-4 leading-6" :class="dayCount === 0 ? '' : 'gap-2'">
-                        <li>{{ formatDateTitle(tempDate.date.start) }}</li>
-                        <li :class="dayCount === 0 ? 'hidden' : 'block'">~</li>
-                        <li :class="dayCount !== 0 ? 'hidden' : 'block'">請選則訂房時間</li>
-                        <li>{{ formatDateTitle(tempDate.date.end) }}</li>
-                    </ul>
-                </div>
-                <div class="flex w-60%  gap-2">
-                    <div class="border-(1px solid #000) p-4 rounded-2 w-full flex flex-col">
-
-                        <label for="checkInDate" class="text-3 leading-4.5 text-gray-80 ">入住</label>
-                        <input type="date" id="checkInDate" readonly class="text-4 leading-6 border-none"
-                            placeholder="YYYY-MM-DD" :value="tempDate.date.start">
+        class="z-10 bottom-0  w-full h-98dvh md:( top-0 left-0 w-100dvw h-100dvh) fixed  bg-gray bg-op-50 backdrop-blur-2">
+        <!-- card -->
+        <div
+            class="absolute max-w-740px w-full bottom-0  pb-4 px-6 rounded-t-5 md:(relative overflow-hidden max-w-740px h-auto top-50% left-50% -transform-translate-x-50% -transform-translate-y-50%  p-8 rounded-5) bg-white ">
+            <!-- card-header -->
+            <div class="card-header">
+                <!-- PC -->
+                <div class="hidden  md:flex mb-10 items-center">
+                    <div class="w-40%">
+                        <h2 class="text-6 leading-7.2 tracking-.5px  font-bold mb-2">{{ dayCount }} 晚</h2>
+                        <ul class="flex text-4 leading-6" :class="dayCount === 0 ? '' : 'gap-2'">
+                            <li>{{ formatDateTitle(tempDate.date.start) }}</li>
+                            <li :class="dayCount === 0 ? 'hidden' : 'block'">~</li>
+                            <li :class="dayCount !== 0 ? 'hidden' : 'block'">請選則訂房時間</li>
+                            <li>{{ formatDateTitle(tempDate.date.end) }}</li>
+                        </ul>
                     </div>
-                    <div class="border-(1px solid #000) p-4 rounded-2 w-full flex flex-col">
+                    <div class="flex w-60%  gap-2">
+                        <div class="border-(1px solid #000) p-4 rounded-2 w-full flex flex-col">
 
-                        <label for="checkOutDate" class="text-3 leading-4.5 text-gray-80 ">退房</label>
-                        <input type="date" id="checkOutDate" readonly class="text-4 leading-6 border-none"
-                            placeholder="YYYY-MM-DD" :value="tempDate.date.end">
+                            <label for="checkInDate" class="text-3 leading-4.5 text-gray-80 ">入住</label>
+                            <input type="date" id="checkInDate" readonly class="text-4 leading-6 border-none"
+                                placeholder="YYYY-MM-DD" :value="tempDate.date.start">
+                        </div>
+                        <div class="border-(1px solid #000) p-4 rounded-2 w-full flex flex-col">
+
+                            <label for="checkOutDate" class="text-3 leading-4.5 text-gray-80 ">退房</label>
+                            <input type="date" id="checkOutDate" readonly class="text-4 leading-6 border-none"
+                                placeholder="YYYY-MM-DD" :value="tempDate.date.end">
+                        </div>
                     </div>
                 </div>
+
+                <!-- SP -->
+                <div class="md:hidden sticky top-0 left-0 z-2 bg-white w-full mb-4 py-4 border-b-(1px solid #ececec)">
+                    <i class="i-mdi:close  block w-6 h-6 mb-4 " @click="closeModel"></i>
+                    <div v-if="dayCount === 0">
+                        <p class="text-5 font-700 leading-6 ">選擇入住日期</p>
+                    </div>
+                    <div v-else>
+                        <ul class="flex text-4 leading-6 items-center" :class="dayCount === 0 ? '' : 'gap-2'">
+                            <li>
+                                <h2 class=" text-6 leading-7.2 tracking-.5px  font-bold">{{ dayCount }} 晚</h2>
+                            </li>
+                            <li>{{ formatDateTitle(tempDate.date.start) }}</li>
+                            <li> ~ </li>
+                            <li>{{ formatDateTitle(tempDate.date.end) }}</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
-            <!-- SP -->
-            <div class="md:hidden sticky top-0 left-0 z-2 bg-white w-full mb-4 py-4 border-b-(1px solid #ececec)">
-                <i class="i-mdi:close  block w-6 h-6 mb-4 " @click="closeModel"></i>
-                <div v-if="dayCount === 0">
-                    <p class="text-5 font-700 leading-6 ">選擇入住日期</p>
-                </div>
-                <div v-else>
-                    <ul class="flex text-4 leading-6 items-center" :class="dayCount === 0 ? '' : 'gap-2'">
-                        <li>
-                            <h2 class=" text-6 leading-7.2 tracking-.5px  font-bold">{{ dayCount }} 晚</h2>
-                        </li>
-                        <li>{{ formatDateTitle(tempDate.date.start) }}</li>
-                        <li> ~ </li>
-                        <li>{{ formatDateTitle(tempDate.date.end) }}</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- 手機確認人數 -->
-            <div v-if="isConfirmDateMobile" class=" my-6 ">
-                <div class="mb-4">
-                    <p class="text-4 leading-6 font-bold tracking-.25px mb-1">選擇人數</p>
-                    <p class="text-3.5 leading-5 tracking-.25px">此房型最多供 4 人居住，不接受寵物入住。</p>
-                </div>
-                <div class="flex gap-4 items-center">
-                    <button type="button" :disabled="bookingPeopleMobile === 1" @click="bookingPeopleMobile--"
-                        :class="bookingPeopleMobile === 1 ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
-                        class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                        <i :class="bookingPeopleMobile === 1 ? 'text-gray-40' : 'text-dark'"
-                            class="i-material-symbols:check-indeterminate-small text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
-                    </button>
-                    <h6>{{ bookingPeopleMobile }}</h6>
-                    <button type="button" :disabled="bookingPeopleMobile === MAX_BOOKING_PEOPLE"
-                        @click="bookingPeopleMobile++"
-                        :class="bookingPeopleMobile === MAX_BOOKING_PEOPLE ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
-                        class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer  group-hover:(text-gray-40 border-color-transparent)) duration-300">
-                        <i :class="bookingPeopleMobile === MAX_BOOKING_PEOPLE ? 'text-gray-40' : 'text-dark'"
-                            class="i-material-symbols:add text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- card-body -->
             <!-- 選日期 -->
+            <div class="card-body  md:overflow-visible">
+                <div v-if="!isConfirmDateMobile" class="  w-full   date-picker ">
 
-            <div v-if="!isConfirmDateMobile" class="mb-25% md:(mb-0)  w-full  date-picker ">
+                    <DatePicker :expanded="expanded" :columns="columns" :rows="rows" color="primary"
+                        :title-position="titlePosition" :key="tempDate.key" :masks="masks"
+                        v-model.range.string="tempDate.date" :min-Date="tempDate.minDate"
+                        :max-Date="tempDate.maxDate" />
+                </div>
 
-                <DatePicker :expanded="expanded" :columns="columns" :rows="rows" color="primary"
-                    :title-position="titlePosition" :key="tempDate.key" :masks="masks"
-                    v-model.range.string="tempDate.date" :min-Date="tempDate.minDate" :max-Date="tempDate.maxDate" />
-            </div>
-
-            <!-- 確認按鈕 -->
-            <!-- pc -->
-            <div class="hidden md:flex justify-end gap-4">
-                <button type="button" @click="clearDate"
-                    class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
-                <button type="button" @click="confirmDate"
-                    class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-primary px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">確定日期</button>
-            </div>
-            <!-- sp -->
-            <div :class="isConfirmDateMobile? 'relative':'fixed'" class="md:hidden bottom-0 left-0 w-full bg-white z-2 ">
-                <div v-if="!isConfirmDateMobile">
-                    <div class="flex gap-4 p-4">
-                        <button type="button" @click="clearDate"
-                            class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
-                        <button type="button" @click="confirmDateMobile"
-                            :class="dayCount === 0 ? 'text-gray-60 bg-gray-40' : 'text-white  bg-primary hover:(opacity-80 transform-translate-y-5%) duration-300'"
-                            :disabled="dayCount === 0 ? true : false"
-                            class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center px-8 py-4 rounded-2 cursor-pointer border-none ">確定日期</button>
+                <!-- 手機確認人數 -->
+                <div v-if="isConfirmDateMobile" class=" my-6 md:hidden">
+                    <div class="mb-4">
+                        <p class="text-4 leading-6 font-bold tracking-.25px mb-1">選擇人數</p>
+                        <p class="text-3.5 leading-5 tracking-.25px">此房型最多供 4 人居住，不接受寵物入住。</p>
+                    </div>
+                    <div class="flex gap-4 items-center">
+                        <button type="button" :disabled="bookingPeopleMobile === 1" @click="bookingPeopleMobile--"
+                            :class="bookingPeopleMobile === 1 ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
+                            class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                            <i :class="bookingPeopleMobile === 1 ? 'text-gray-40' : 'text-dark'"
+                                class="i-material-symbols:check-indeterminate-small text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                        </button>
+                        <h6>{{ bookingPeopleMobile }}</h6>
+                        <button type="button" :disabled="bookingPeopleMobile === MAX_BOOKING_PEOPLE"
+                            @click="bookingPeopleMobile++"
+                            :class="bookingPeopleMobile === MAX_BOOKING_PEOPLE ? 'text-gray-40 hover:(bg-transparent)  ' : ' hover:(bg-dark )'"
+                            class=" group w-14 h-14 border-(1px solid #ececec) rounded-full p-4 relative bg-transparent cursor-pointer  group-hover:(text-gray-40 border-color-transparent)) duration-300">
+                            <i :class="bookingPeopleMobile === MAX_BOOKING_PEOPLE ? 'text-gray-40' : 'text-dark'"
+                                class="i-material-symbols:add text-6 inline-block absolute top-50% left-50% -transform-translate-x-50% -transform-translate-y-50% group-hover:(text-gray-40 border-color-transparent))"></i>
+                        </button>
                     </div>
                 </div>
-                <div v-else>
-                    <div class="flex gap-4">
-                        <button type="button" @click="isConfirmDateMobile = false"
-                            class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80   py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">重新選擇日期</button>
-                        <button type="button" @click="confirmDate"
-                            class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center px-8 py-4 rounded-2 cursor-pointer border-none text-white  bg-primary hover:(opacity-80 transform-translate-y-5%) duration-300">儲存</button>
+            </div>
+            <!-- card-footer -->
+            <div class="card-footer">
+                <!-- pc -->
+                <div class="hidden md:flex justify-end gap-4">
+                    <button type="button" @click="clearDate"
+                        class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
+                    <button type="button" @click="confirmDate"
+                        class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-primary px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">確定日期</button>
+                </div>
+                <!-- sp -->
+                <div class="md:hidden  left-0 w-full bg-white ">
+                    <div v-if="!isConfirmDateMobile">
+                        <div class="flex gap-4 p-4">
+                            <button type="button" @click="clearDate"
+                                class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80 px-8 py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">清除日期</button>
+                            <button type="button" @click="confirmDateMobile"
+                                :class="dayCount === 0 ? 'text-gray-60 bg-gray-40' : 'text-white  bg-primary hover:(opacity-80 transform-translate-y-5%) duration-300'"
+                                :disabled="dayCount === 0 ? true : false"
+                                class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center px-8 py-4 rounded-2 cursor-pointer border-none ">確定日期</button>
+                        </div>
                     </div>
+                    <div v-else>
+                        <div class="flex gap-4">
+                            <button type="button" @click="isConfirmDateMobile = false"
+                                class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center text-white  bg-gray-80   py-4 rounded-2 cursor-pointer border-none hover:(opacity-80 transform-translate-y-5%) duration-300">重新選擇日期</button>
+                            <button type="button" @click="confirmDate"
+                                class="w-1/2 md:(w-auto) text-4 leading-6 font-bold text-center px-8 py-4 rounded-2 cursor-pointer border-none text-white  bg-primary hover:(opacity-80 transform-translate-y-5%) duration-300">儲存</button>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </section>
 </template>
 <style scoped>
