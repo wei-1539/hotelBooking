@@ -3,6 +3,10 @@ const props = defineProps({
   roomInfoData: {
     type: Array,
   },
+  bgWhite: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const iconData = [
@@ -17,6 +21,7 @@ const iconData = [
       v-for="(item, ind) in roomInfoData"
       :key="ind"
       class="w-97px h-97px px-4 py-5.125 border-(1px solid primary-40) rounded-2"
+      :class="`${bgWhite ? 'bg-white' : ''}`"
     >
 
       <div :class="`${iconData[ind]}`" class="w-6 h-6 text-primary mb-2"></div>
