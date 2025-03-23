@@ -115,13 +115,13 @@ const dateTitle =(date)=>{
     <section class="w-full hidden md:(block p-10) lg:(p-20) ">
       <div class="flex rounded-5 gap-2 overflow-hidden">
         <picture class="max-w-978px w-full">
-          <source media="max-width:768px" :srcset="`${roomDetailInfo[0].spImg}`">
+          <source media="(max-width:768px)" :srcset="`${roomDetailInfo[0].spImg}`">
           <img class="object-cover w-full h-full" :src="`${roomDetailInfo[0].pcImg}`" alt="">
         </picture>
         <ul class="flex gap-2 flex-wrap w-62%">
           <li v-for="item in 4" :key="item" class="w-49%">
             <picture>
-              <source media="max-width:768px" :srcset="roomDetailInfo[item].spImg">
+              <source media="(max-width:768px)" :srcset="roomDetailInfo[item].spImg">
               <img class="object-cover w-full h-full" :src="roomDetailInfo[item].pcImg" alt="">
             </picture>
           </li>

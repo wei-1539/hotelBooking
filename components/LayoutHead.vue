@@ -17,7 +17,7 @@ const route = useRoute()
 // 判斷是否為房間詳細頁
 const isRoomDetailPage = computed(() => {
     const pageStatus = route.fullPath.split('/');
-    return pageStatus.length > 2 && pageStatus[1] === 'rooms'
+    return pageStatus.length > 2 && (pageStatus[1] === 'rooms' ||pageStatus[1] === 'booking'||pageStatus[1] === 'user')
 })
 </script>
 
