@@ -40,7 +40,13 @@ const pageStatus = computed(() => {
         </section>
 
         <NuxtPage />
-        <LayoutFooter />
+        <section class="bg-gray-120">
+            <picture >
+                <source media="(max-width:768px)" srcset="@/public/images/deco-line-group-horizontal-sm.svg">
+                <img class="w-full h-full object-cover" src="@/public/images/deco-line-group-horizontal-full.svg" alt="">
+            </picture>
+            <LayoutFooter />
+        </section>
     </main>
 </template>
 
