@@ -155,7 +155,7 @@ const roomlayoutInfo = [
         <div class="sticky top-15% max-w-478px w-full max-h-678px p-6 rounded-5 md:(p-10 rounded-2) bg-white">
           <div class="rounded-2 mb-6 md:mb-10  overflow-hidden h-272px">
             <picture>
-              <source media="max-width:768px" srcset="@/public/images/room-a-sm-1.png">
+              <source media="(max-width:768px)" srcset="@/public/images/room-a-sm-1.png">
               <img class="object-cover w-full h-full" src="@/public/images/room-a-1.png" alt="">
             </picture>
           </div>

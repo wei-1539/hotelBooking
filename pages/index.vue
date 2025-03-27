@@ -169,11 +169,11 @@ const trafficInfo = [
     <!-- 房間輪播 -->
     <section class="bg-gray-120 py-30 relative">
       <picture class="absolute  -right-10% top-2.5%  md:( right-0 top-15%)">
-        <source media="max-width:768px" srcset="@/public/images/deco/room-line-web.png">
+        <source media="(max-width:768px)" srcset="@/public/images/deco/room-line-web.png">
         <img src="@/public/images/deco/room-line.png" alt="">
       </picture>
       <picture class="absolute top-50% right-0 md:( top-45%)">
-        <source media="max-width:768px" srcset="@/public/images/deco/waveBG-web.png">
+        <source media="(max-width:768px)" srcset="@/public/images/deco/waveBG-web.png">
         <img src="@/public/images/deco/waveBG.png" alt="">
       </picture>
       <RoomCarousel :room-list="roomInfo" />
