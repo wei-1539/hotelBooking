@@ -45,18 +45,20 @@ const roomlayoutInfo = [
     "isProvide": true
   }
 ];
+
+const isModelState = ref(false)
 </script>
 <template>
   <main class="bg-gray-120 px-3 py-10 md:(pt-20 pb-30)">
     <div class="max-w-1297px mx-auto">
       <div class="flex flex-col gap-6 md:(flex-row gap-10)">
         <!-- 最新訂單 -->
-        <div class="p-10 max-w-730px w-full bg-white rounded-2 ">
-          <div class=" mb-10 flex flex-col gap-2">
-            <p class="text-4 leading-6 ">預訂參考編號： HH2302183151222</p>
-            <h2 class="text-6 leading-7.5 font-700">即將來的行程</h2>
+        <div class="p-4 rounded-5 md:(p-10 rounded-2) max-w-730px w-full bg-white  ">
+          <div class=" mb-6 md:mb-10 flex flex-col gap-2">
+            <p class="text-3.5  md:(text-4 ) leading-6 ">預訂參考編號： HH2302183151222</p>
+            <h2 class="text-4 leading-6 md:(text-6 leading-7.5) font-700">即將來的行程</h2>
           </div>
-          <div class="w-full rounded-2 overflow-hidden mb-10">
+          <div class="w-full rounded-2 overflow-hidden mb-6 md:mb-10">
             <picture>
               <source media="(max-width:768px)" srcset="@/public/images/room-a-sm-1.png">
               <img class="object-cover w-full h-full" src="@/public/images/room-a-1.png" alt="">
@@ -79,12 +81,12 @@ const roomlayoutInfo = [
             <p class="text-4 md:text-5 leading-6 tracking-.25px color-gray-80 font-700">NT$ 10,000</p>
           </div>
           <hr class="mb-6 md:mb-10  bg-gray-40 w-full h-1px border-none">
-          <div class="flex flex-col gap-6 md:gap-10 mb-10">
+          <div class="flex flex-col gap-6 mb-6 md:(gap-10 mb-10)">
             <RoomDetailCheck title="房內設備" :detailCheckData="roomlayoutInfo" :boooking-confirmation="true" />
             <RoomDetailCheck title="備品提供" :detailCheckData="roomlayoutInfo" :boooking-confirmation="true" />
           </div>
           <div class="flex gap-4">
-            <div
+            <div @click="isModelState = !isModelState"
               class=" py-4 w-full text-center text-primary rounded-2 border-(1px solid primary) font-700 leading-6 tracking-.25px cursor-pointer hover:(translate-y-5% opacity-80 ) duration-300">
               取消預訂</div>
             <div
@@ -93,13 +95,14 @@ const roomlayoutInfo = [
           </div>
         </div>
         <!-- 歷史訂單 -->
-        <div class="p-10 w-full max-w-527px h-full bg-white rounded-2">
-          <h2 class="mb-10 text-6 leading-7.5 font-700">歷史訂單</h2>
+        <div class="p-4 rounded-5 md:(p-10 rounded-2)  w-full max-w-527px h-full bg-white ">
+          <h2 class="mb-6 text-4 leading-6 md:(mb-10 text-6 leading-7.5) font-700">歷史訂單</h2>
+          <!-- <h2 class="text-4 leading-6 md:(mb-10 text-6 leading-7.5) font-700 text-gray-60">目前沒有歷史訂單</h2> -->
           <ul class=" flex flex-col mb-10">
             <li class=" historyOrderItem  " v-for="a in 3" :key="a">
-              <div class="flex flex-col after:(content-['']  w-full h-1px bg-gray-40  rounded-2.5 my-10)">
-                <div class="flex gap-6">
-                  <picture class="rounded-2 overflow-hidden w-120px h-80px">
+              <div class="flex flex-col after:(content-['']  w-full h-1px bg-gray-40  rounded-2.5 my-6 md:my-10)">
+                <div class="flex flex-col md:flex-row gap-6">
+                  <picture class="rounded-2 overflow-hidden w-1/2 md:(w-120px h-80px)">
                     <source media="(max-width:768px)" srcset="@/public/images/room-a-sm-1.png">
                     <img class="object-cover w-full h-full" src="@/public/images/room-a-1.png" alt="">
                   </picture>
@@ -137,6 +140,8 @@ const roomlayoutInfo = [
       </div>
     </div>
   </main>
+
+  <OrderModel :isOrderModel="isModelState" />
 </template>
 <style scoped>
 .historyOrderItem:last-child> div::after{
