@@ -1,11 +1,54 @@
 <script setup>
 const isChecked = ref(false);
+const isValid = ref(false);
 const nextForm = ref(false);
-function checkNext() {
-  nextForm.value = !nextForm.value;
-}
+// function checkNext() {
+//   nextForm.value = !nextForm.value;
+// }
 const cityDate = ['新北市', '台中市', '高雄市']
 const districtDate = ['土城區', '大甲區', '前鎮區']
+
+
+// 輸出個人資料表格
+const profileForm = ref({
+  name: "",
+  email: "",
+  password: "",
+  phone: "",
+  birthday: "",
+  address: {
+    zipcode: "",
+    detail: "",
+  }
+})
+// 確認第二次密碼
+const confirmPassword = ref('')
+import { required } from '@vee-validate/rules';
+// const profileForm = ref({
+// 引入vee-validate 語法
+import { Field, Form, ErrorMessage, } from 'vee-validate'
+// 確認密碼 與 確認密碼 一致才能前往下一步
+watchEffect(() => {
+  // 驗證 email 格式的正規表達式
+  const emailCheck = /^\S+@\S+\.\S+$/
+
+  // 驗證密碼是否一致
+  const isPasswordMatch = profileForm.value.password === confirmPassword.value;
+  // 驗證 email 格式 & 密碼是否一致
+  isValid.value = emailCheck.test(profileForm.value.email) && isPasswordMatch
+
+})
+const checkNextForm = () => {
+
+  if (isValid.value) {
+    nextForm.value = !nextForm.value;
+    console.log('下一步')
+  } else {
+    alert('請檢查信箱格式或密碼是否一致')
+  }
+}
+// const { value: password, errorMessage: passwordError } = useField('password', 'required|min:6')
+
 </script>
 <template>
   <section class="w-full h-full bg-gray-120">
@@ -50,38 +93,74 @@ const districtDate = ['土城區', '大甲區', '前鎮區']
           </div>
 
           <!-- 表單 -->
-          <form v-if="!nextForm" class="mb-4">
+          <Form v-if="!nextForm" class="mb-4">
             <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
-              for="mail">電子信箱</label>
-            <input class="w-full bg-white rounded-2 p-4 color-gray-60 mb-4" type="mail" id="mail"
-              placeholder="hello@exsample.com" />
+              for="email">電子信箱</label>
+            <div class="relative mb-4">
+              <Field name="信箱" :rules="'required|email'" v-model="profileForm.email"
+                class="w-full bg-white rounded-2 p-4 color-gray-60 " type="email" id="email"
+                placeholder="hello@exsample.com" />
+              <ErrorMessage name="信箱"
+                class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
+            </div>
+
             <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
               for="password">密碼</label>
-            <input class="w-full bg-white rounded-2 p-4 color-gray-60 mb-4" type="password" id="password"
-              placeholder="請輸入密碼" />
+            <div class="relative mb-4">
+              <Field name="密碼" v-slot="{ field, errorMessage }" :rules="'required|min:6'">
+                <input v-bind="field" @input="profileForm.password = field.value"
+                  class="w-full bg-white rounded-2 p-4 color-gray-60" type="password" id="password"
+                  placeholder="請輸入密碼" />
+                <span v-if="errorMessage"
+                  class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%">
+                  {{ errorMessage }}
+                </span>
+              </Field>
+            </div>
+
             <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
               for="checkPassword">確認密碼</label>
-            <input class="w-full bg-white rounded-2 p-4 color-gray-60 mb-10" type="password" id="checkPassword"
-              placeholder="請再輸入一次密碼" />
+            <div class="relative mb-10">
+              <Field name="確認密碼" :rules="'required|min:6|max:10'" v-slot="{ field, errorMessage }">
+                <input v-bind="field" @input="confirmPassword = field.value"
+                  class="w-full bg-white rounded-2 p-4 color-gray-60" type="password" id="checkPassword"
+                  placeholder="請再輸入一次密碼" />
+                <span v-if="errorMessage"
+                  class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%">
+                  {{ errorMessage }}
+                </span>
+              </Field>
+
+            </div>
 
             <button class="text-4 leading-6 rounded-2 py-4 block w-full text-center cursor-pointer duration-300"
-              @click="checkNext" type="button">
+              @click="checkNextForm" type="button">
               下一步
             </button>
-          </form>
+          </Form>
 
           <!-- 第二階段 -->
           <div v-else>
-            <form>
+            <Form>
               <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
                 for="name">姓名</label>
-              <input class="w-full bg-white rounded-2 p-4 color-gray-60 mb-4" type="text" id="name"
-                placeholder="請輸入姓名" />
+              <div class="relative mb-4">
+
+                <Field name="姓名" :rules="'required'" class="w-full bg-white rounded-2 p-4 color-gray-60" type="text"
+                  id="name" placeholder="請輸入姓名" />
+                <ErrorMessage name="姓名"
+                  class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
+              </div>
 
               <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
-                for="phone">密碼</label>
-              <input class="w-full bg-white rounded-2 p-4 color-gray-60 mb-4" type="number" id="phone"
-                placeholder="請輸入手機號碼" />
+                for="phone">號碼</label>
+              <div class="relative mb-4">
+                <Field name="號碼" :rules="'required|phone'" class="w-full bg-white rounded-2 p-4 color-gray-60" type="tel" id="phone"
+                  placeholder="請輸入手機號碼" />
+                <ErrorMessage name="號碼"
+                  class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
+
+              </div>
 
               <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
                 for="birthday">生日</label>
