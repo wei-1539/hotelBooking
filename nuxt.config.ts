@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     "assets/styles/reset.css",
     "assets/styles/transition.css",
   ],
-  modules: ["@unocss/nuxt"],
+  modules: ["@unocss/nuxt","@pinia/nuxt"],
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 });

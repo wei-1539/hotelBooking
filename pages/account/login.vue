@@ -1,6 +1,24 @@
 <script setup>
 const isChecked = ref(false);
 const isLogin = ref(false);
+
+// 將 store 中的方法引入
+const authStore = useAuthStore();
+
+const mail = ref("");
+const password = ref("");
+
+const handleLogin = async()=>{
+  try{
+    await authStore.login(mail.value, password.value);
+    await authStore.getUserData();
+    await navigateTo('/');
+  }
+  catch(err){
+    alert("登入失敗，請檢查帳號密碼");
+  }
+}
+
 </script>
 <template>
   <section class="w-full h-full bg-gray-120">
@@ -44,6 +62,7 @@ const isLogin = ref(false);
               type="mail"
               id="mail"
               placeholder="hello@exsample.com"
+              v-model="mail"
             />
             <label
               class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
@@ -55,6 +74,7 @@ const isLogin = ref(false);
               type="password"
               id="password"
               placeholder="請輸入密碼"
+              v-model="password"
             />
 
             <div class="flex justify-between items-center mb-10">
@@ -82,6 +102,7 @@ const isLogin = ref(false);
               class="text-4 leading-6  rounded-2 py-4 block w-full text-center cursor-pointer duration-300"
               :class="{'bg-primary text-white':isLogin,'bg-white':!isLogin}"
               type="button"
+              @click="handleLogin"
             >
               會員登入
             </button>

@@ -19,6 +19,10 @@ const isRoomDetailPage = computed(() => {
     const pageStatus = route.fullPath.split('/');
     return pageStatus.length > 2 && (pageStatus[1] === 'rooms' ||pageStatus[1] === 'booking'||pageStatus[1] === 'user')
 })
+
+
+const authStore = useAuthStore();
+const logout = authStore.logout;
 </script>
 
 <template>
@@ -50,6 +54,11 @@ const isRoomDetailPage = computed(() => {
                         立即訂房</NuxtLink>
                     <!-- 按鈕元件 -->
                     <!-- <DefaultBtn/>  -->
+                </li>
+                <li>
+                    <div @click="logout"
+                        class="px-8 py-4 text-white decoration-none border-rd-2 bg-primary hover-bg-primary-120 duration-300 ">
+                        登出</div>
                 </li>
             </ul>
         </nav>

@@ -1,4 +1,9 @@
 <script setup>
+const router = useRouter();
+// 引入runtimeconfig 的 env
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiBaseUrl
+
 const isChecked = ref(false);
 const isValid = ref(false);
 const nextForm = ref(false);
@@ -8,18 +13,18 @@ const nextForm = ref(false);
 const cityDate = ['新北市', '台中市', '高雄市']
 const districtDate = ['土城區', '大甲區', '前鎮區']
 
-
+const birthYear = ref("");
+const birthMonth = ref("");
+const birthDay = ref("");
+const city = ref("");
+const district = ref("");
+const address = ref("");
 // 輸出個人資料表格
 const profileForm = ref({
   name: "",
   email: "",
   password: "",
   phone: "",
-  birthday: "",
-  address: {
-    zipcode: "",
-    detail: "",
-  }
 })
 // 確認第二次密碼
 const confirmPassword = ref('')
@@ -33,21 +38,55 @@ watchEffect(() => {
   const emailCheck = /^\S+@\S+\.\S+$/
 
   // 驗證密碼是否一致
-  const isPasswordMatch = profileForm.value.password === confirmPassword.value;
+  const isPasswordMatch = profileForm.value.password === confirmPassword.value && profileForm.value.password !== null && confirmPassword.value !== null;
   // 驗證 email 格式 & 密碼是否一致
   isValid.value = emailCheck.test(profileForm.value.email) && isPasswordMatch
 
 })
+// 前往下一步
 const checkNextForm = () => {
 
   if (isValid.value) {
     nextForm.value = !nextForm.value;
-    console.log('下一步')
   } else {
     alert('請檢查信箱格式或密碼是否一致')
   }
 }
-// const { value: password, errorMessage: passwordError } = useField('password', 'required|min:6')
+// 註冊
+const processRegistration = async () => {
+  if (!isChecked.value) { return }
+
+  const { name, email, password, phone, } = profileForm.value
+
+  // 要送API的資料
+  const registrationData = {
+    name,
+    email,
+    password,
+    phone,
+    birthday: `${birthYear.value}/${birthMonth.value}/${birthDay.value}`,
+    address: {
+      zipcode: "236",
+      detail: `${city.value}${district.value}${address.value}`,
+    }
+  }
+
+  try { 
+    const response = await $fetch(`${baseUrl}api/v1/user/signup`,{
+      method:'POST',
+      body: registrationData,
+    });
+    console.log(response);
+    router.push({
+      path: "/account/login",
+    });
+  }
+  catch (error) {
+    console.error('註冊失敗', error)
+    alert('註冊失敗，請稍後再試')
+  }
+
+}
 
 </script>
 <template>
@@ -107,9 +146,9 @@ const checkNextForm = () => {
             <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
               for="password">密碼</label>
             <div class="relative mb-4">
-              <Field name="密碼" v-slot="{ field, errorMessage }" :rules="'required|min:6'">
+              <Field name="密碼" v-slot="{ field, errorMessage }" :rules="'required|min:8|max:10'" >
                 <input v-bind="field" @input="profileForm.password = field.value"
-                  class="w-full bg-white rounded-2 p-4 color-gray-60" type="password" id="password"
+                  class="w-full bg-white rounded-2 p-4 color-gray-60 " type="password" id="password"
                   placeholder="請輸入密碼" />
                 <span v-if="errorMessage"
                   class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%">
@@ -121,7 +160,7 @@ const checkNextForm = () => {
             <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
               for="checkPassword">確認密碼</label>
             <div class="relative mb-10">
-              <Field name="確認密碼" :rules="'required|min:6|max:10'" v-slot="{ field, errorMessage }">
+              <Field name="確認密碼" :rules="'required|min:8|max:10'" v-slot="{ field, errorMessage }">
                 <input v-bind="field" @input="confirmPassword = field.value"
                   class="w-full bg-white rounded-2 p-4 color-gray-60" type="password" id="checkPassword"
                   placeholder="請再輸入一次密碼" />
@@ -133,7 +172,8 @@ const checkNextForm = () => {
 
             </div>
 
-            <button class="text-4 leading-6 rounded-2 py-4 block w-full text-center cursor-pointer duration-300"
+            <button :class="[isValid ? ' bg-primary' : 'bg-gray-60']"
+              class="text-4 leading-6 rounded-2 py-4 block w-full text-center cursor-pointer duration-300"
               @click="checkNextForm" type="button">
               下一步
             </button>
@@ -146,8 +186,8 @@ const checkNextForm = () => {
                 for="name">姓名</label>
               <div class="relative mb-4">
 
-                <Field name="姓名" :rules="'required'" class="w-full bg-white rounded-2 p-4 color-gray-60" type="text"
-                  id="name" placeholder="請輸入姓名" />
+                <Field name="姓名" :rules="'required'" v-model="profileForm.name"
+                  class="w-full bg-white rounded-2 p-4 color-gray-60" type="text" id="name" placeholder="請輸入姓名" />
                 <ErrorMessage name="姓名"
                   class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
               </div>
@@ -155,8 +195,8 @@ const checkNextForm = () => {
               <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
                 for="phone">號碼</label>
               <div class="relative mb-4">
-                <Field name="號碼" :rules="'required|phone'" class="w-full bg-white rounded-2 p-4 color-gray-60" type="tel" id="phone"
-                  placeholder="請輸入手機號碼" />
+                <Field name="號碼" :rules="'required|phone'" v-model="profileForm.phone"
+                  class="w-full bg-white rounded-2 p-4 color-gray-60" type="tel" id="phone" placeholder="請輸入手機號碼" />
                 <ErrorMessage name="號碼"
                   class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
 
@@ -166,47 +206,85 @@ const checkNextForm = () => {
                 for="birthday">生日</label>
               <div class="flex gap-2 mb-4">
                 <!-- 西元年份  -->
-                <select name="birthYear" id="birthday" class="w-full bg-white rounded-2 p-4 color-gray-60">
-                  <option v-for="year in 130" :key="year" :value="`${year + 1911}年`">
-                    {{ year + 1911 }}年
-                  </option>
-                </select>
+                <div class="relative w-full  ">
+
+                  <Field name="年份" as="select" :rules="'required'" id="birthday" v-model="birthYear"
+                    class="w-full  p-4 rounded-2 color-gray-60 ">
+                    <option disabled value="">選擇年份</option>
+                    <option v-for="year in 130" :key="year" :value="`${year + 1911}`">
+                      {{ year + 1911 }}年
+                    </option>
+                  </Field>
+                  <ErrorMessage name="年份"
+                    class="text-red-500 font-700 text-3.5 absolute top-50% right-15% -translate-y-50% bg-white w-80% text-end pointer-events-none" />
+                </div>
                 <!-- 月份 -->
-                <select class="w-full bg-white rounded-2 p-4 color-gray-60">
-                  <option v-for="month in 12" :key="month" :value="`${month}月`">
-                    {{ month }}月
-                  </option>
-                </select>
+                <div class="relative w-full  ">
+                  <Field name="月份" as="select" :rules="'required'" v-model="birthMonth"
+                    class="w-full bg-white rounded-2 p-4 color-gray-60">
+                    <option disabled value="">選擇月份</option>
+                    <option v-for="month in 12" :key="month" :value="`${month}`">
+                      {{ month }}月
+                    </option>
+                  </Field>
+                  <ErrorMessage name="月份"
+                    class="text-red-500 font-700 text-3.5 absolute top-50% right-15% -translate-y-50% bg-white w-80% text-end " />
+
+                </div>
                 <!-- 日期 -->
-                <select class="w-full bg-white rounded-2 p-4 color-gray-60">
-                  <option v-for="day in 31" :key="day" :value="`${day}日`">
-                    {{ day }}日
-                  </option>
-                </select>
+                <div class="relative w-full  ">
+                  <Field name="日期" as="select" :rules="'required'" v-model="birthDay"
+                    class="w-full bg-white rounded-2 p-4 color-gray-60">
+                    <option disabled value="">選擇日期</option>
+                    <option v-for="day in 31" :key="day" :value="`${day}`">
+                      {{ day }}日
+                    </option>
+                  </Field>
+                  <ErrorMessage name="日期"
+                    class="text-red-500 font-700 text-3.5 absolute top-50% right-15% -translate-y-50% bg-white w-80% text-end " />
+                </div>
               </div>
 
               <label class="block text-white text-3.5 md:(text-4) tracking-.25 leading-6 font-bold mb-2"
                 for="address">地址</label>
               <div class="flex gap-2 mb-4">
                 <!-- 縣市 -->
-                <select name="city" id="address" class="w-full bg-white rounded-2 p-4 color-gray-60">
-                  <option v-for="city in cityDate" :key="city" :value="city">{{ city }}</option>
-                </select>
+                <div class="relative w-full  ">
+                  <Field as="select" :rules="'required'" name="縣市" id="address" v-model="city"
+                    class="w-full bg-white rounded-2 p-4 color-gray-60">
+                    <option disabled value="">選擇縣市</option>
+                    <option v-for="city in cityDate" :key="city" :value="city">{{ city }}</option>
+                  </Field>
+                  <ErrorMessage name="縣市"
+                    class="text-red-500 font-700 text-3.5 absolute top-50% right-15% -translate-y-50%" />
+                </div>
                 <!-- 區域 -->
-                <select name="district" class="w-full bg-white rounded-2 p-4 color-gray-60">
-                  <option v-for="district in districtDate" :key="district" :value="district">{{ district }}</option>
-                </select>
+                <div class="relative w-full  ">
+                  <Field as="select" :rules="'required'" name="區域" v-model="district"
+                    class="w-full bg-white rounded-2 p-4 color-gray-60">
+                    <option disabled value="">選擇區域</option>
+                    <option v-for="district in districtDate" :key="district" :value="district">{{ district }}</option>
+                  </Field>
+                  <ErrorMessage name="區域"
+                    class="text-red-500 font-700 text-3.5 absolute top-50% right-15% -translate-y-50%" />
+                </div>
               </div>
-              <input type="text" class="mb-4 w-full bg-white rounded-2 p-4 color-gray-60" placeholder="請輸入詳細地址">
-            </form>
+              <div class="relative mb-4">
+                <Field name="詳細地址" :rules="'required'" v-model="address" type="text"
+                  class=" w-full bg-white rounded-2 p-4 color-gray-60" placeholder="請輸入詳細地址">
+                </Field>
+                <ErrorMessage name="詳細地址"
+                  class="text-red-500 font-700 text-3.5 absolute top-50% right-2.5% -translate-y-50%" />
+              </div>
+            </Form>
             <div class="flex items-center mb-10">
               <input class="w-6 h-6 rounded-2 mr-2 cursor-pointer" v-model="isChecked" type="checkbox" id="agree"
                 :class="{ checking: isChecked }" />
               <label class="text-4 leading-6 font-bold text-white cursor-pointer" for="agree">我已閱讀並同意本網站個資使用規範</label>
             </div>
 
-            <button
-              class=" bg-primary text-white text-4 leading-6  rounded-2 py-4 block w-full text-center cursor-pointer duration-300 mb-4"
+            <button @click="processRegistration" :class="[isChecked ? ' bg-primary text-white' : 'bg-gray-60']"
+              class="   text-4 leading-6  rounded-2 py-4 block w-full text-center cursor-pointer duration-300 mb-4"
               type="button">
               完成註冊
             </button>
@@ -243,8 +321,8 @@ const checkNextForm = () => {
   content: "\2714";
   color: #fff;
   position: absolute;
-  font-size: 1rem;
-  top: 40%;
+  font-size: .8rem;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
